@@ -16,6 +16,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.text.format.Formatter;
+import android.view.View;
 import android.widget.TextView;
 
 import java.io.*;
@@ -48,15 +49,20 @@ public class HeadsUpDisplay extends Activity {
         task.execute(this);
 
     }
-
+    public void sendData_onclick(View v){
+        try{
+            sendDataToWebServer("hello there");
+            updateView("Sent");
+        }catch(Exception e){
+            updateView(e.toString());
+        }
+    }
     public void sendDataToWebServer(String data) throws IOException {
         if (data == null) {
             updateView("data null");
         }
-        Socket socket = new Socket("155.92.69.95", 8000);
-        DataOutputStream outToServer = new DataOutputStream(socket.getOutputStream());
-        outToServer.writeUTF("HI BLAKE!!!");
-        outToServer.close();
+        outstream.write(data);
+        outstream.flush();
     }
 
     @Override
@@ -71,29 +77,55 @@ public class HeadsUpDisplay extends Activity {
             }
         }
     }
-
+    BufferedWriter outstream;
+    ServerSocket websock = null;
+    Socket sock=null;
     public void updateView(String line) {
-        console.append(line + "\n");
+        try {
+            console.append(line + "\n");
+        }catch (Exception e){
+            System.out.println(console);
+            console.append(e.toString());
+        }
     }
-
-    private class ServerAsyncTask extends AsyncTask {
-
+    public void instantiateWriter(OutputStream stream){
+        outstream = new BufferedWriter(new OutputStreamWriter(stream));
+    }
+    public class ServerAsyncTask extends AsyncTask {
+        public void updateUI(final String s){
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    updateView(s);
+                }
+            });
+        }
         @Override
-        protected Object doInBackground(final Object[] params) {
+        public Object doInBackground(final Object... params) {
             final HeadsUpDisplay display = ((HeadsUpDisplay)params[0]);
             String line = "This fucker is null";
             try {
-                ServerSocket websock = new ServerSocket(1112);
-                Socket sock = websock.accept();
-                DataOutputStream outstream = new DataOutputStream(sock.getOutputStream());
+                websock = new ServerSocket(1112);
+                sock = websock.accept();
+                updateUI("PitView v1.0");
+                updateUI("Connected to PitView (IP=" + sock.getRemoteSocketAddress().toString().substring(1) + ":1112)");
+                instantiateWriter(sock.getOutputStream());
                 String outstreamdata = "faux data\r\n";
-                outstream.writeUTF(outstreamdata);
-
+                sendDataToWebServer("testing web server1", outstream);
+                //outstream.flush();
+                /*outstream.write(outstreamdata);
+                outstream.flush();
+                outstream.write(outstreamdata);
+                outstream.flush();
+                outstream.flush();
+                outstream.write(outstreamdata);
+                outstream.flush();
+                outstream.write(outstreamdata);*/
 
                 serverSocket = new ServerSocket(1111);
                 Socket echoSocket = serverSocket.accept();
                 if (echoSocket == null) {
-                    updateView("Socket connection failed");
+                    updateUI("Socket connection failed");
                 } else {
                     while (SystemClock.currentThreadTimeMillis() < startTime + 30000) {
                         line = new BufferedReader(new InputStreamReader(echoSocket.getInputStream())).readLine();
@@ -102,29 +134,28 @@ public class HeadsUpDisplay extends Activity {
 
                         // update ui
                         if (!line.isEmpty()) {
-                            runOnUiThread(new Runnable() {
-                                @Override
-                                public void run() {
-                                    display.updateView(output);
-                                }
-                            });
+                            updateUI(output);
                             outstreamdata += output;
                         }
                     }
-                    runOnUiThread(new Runnable() {
-                        public void run() {
-                            display.updateView("done receiving - now sent to blake");
-                        }
-                    });
+                    updateUI("done receiving - now sent to blake");
                 }
                 // send to web server
-                outstream.writeUTF(outstreamdata + "\r\n");
+                outstream.write((outstreamdata + "\r\n"));
+                outstream.flush();
 
-
+                sendDataToWebServer("testing web server",outstream);
             } catch (IOException e) {
                 e.printStackTrace();
             }
             return null;
+        }
+        public void sendDataToWebServer(String data,BufferedWriter stream) throws IOException {
+            if (data == null) {
+                updateUI("data null");
+            }
+            stream.write(data);
+            stream.flush();
         }
     }
 }
