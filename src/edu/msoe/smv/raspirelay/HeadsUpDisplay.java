@@ -27,21 +27,21 @@ import java.net.SocketException;
 public class HeadsUpDisplay extends Activity {
 
     public TextView console;
-    public CheckedTextView webConnected, piConnected;
-    private ServerSocket piServerSocket, webServerSocket ;
-    public WebListener myWebListener;
+    public TextView webConnected, piConnected;
+    public WebClientConnectionAgent webAgent;
+    private ServerSocket piServerSocket/*, webServerSocket */;
+    //public WebListener myWebListener;
     public PiListener myPiListener;
-    public boolean isPiDataServerRunning=true,isWebDataServerRunning=true;
+    public boolean isPiDataServerRunning=true/*,isWebDataServerRunning=true*/;
     //private long startTime;
-    BufferedWriter webServerOutput;
-    Socket webServerDataSocket =null;
+    /*BufferedWriter webServerOutput;
+    Socket webServerDataSocket =null;*/
 
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.headsupdisplay);
-
 
         //startTime = SystemClock.currentThreadTimeMillis();
 //        String hostName = "155.92.179.102";
@@ -51,16 +51,29 @@ public class HeadsUpDisplay extends Activity {
         //get public IP from Wifi Manager
         WifiManager wm = (WifiManager) getSystemService(WIFI_SERVICE);
         String ip  = Formatter.formatIpAddress(wm.getConnectionInfo().getIpAddress());
-        updateView("my ip: " + ip);
+        updateConsole("my ip: " + ip);
 
         //get connection status displays
-        webConnected = (CheckedTextView)findViewById(R.id.webConnected);
-        piConnected = (CheckedTextView)findViewById(R.id.piConnected);
+        webConnected = (TextView)findViewById(R.id.webConnected);
+        piConnected = (TextView)findViewById(R.id.piConnected);
 
-//        myPiListener = new PiListener();
-//        myPiListener.execute();
+        startWebServerListener();
     }
 
+    public void sendData_onClick(View v){
+        sendRandomData();
+    }
+
+    public void sendRandomData(){
+        /*if(myWebListener!=null){
+            String data=new Data().randomize().toString();
+            myWebListener.sendData(data);
+        }*/
+        if(webAgent!=null){
+            String data=new Data().randomize().toString();
+            webAgent.sendData(data);
+        }
+    }
 
     /**
      * onClick method for the startWebListener button
@@ -98,27 +111,33 @@ public class HeadsUpDisplay extends Activity {
      *
      */
     public void startWebServerListener(){
-        if (myWebListener != null)
+        /*if (myWebListener != null)
             stopWebServerListener();
         isWebDataServerRunning=true;
         myWebListener=new WebListener();
-        myWebListener.execute();
+        myWebListener.execute();*/
+        if(webAgent!=null){
+            webAgent.stopServer();
+        }
+        webAgent=new WebClientConnectionAgent(this);
+        webAgent.startServer();
     }
 
     /**
      *
      */
     public void stopWebServerListener(){
-        try {
+        /*try {
             webServerSocket.close();
             webServerOutput.close();
         } catch(Exception e) {
-            updateView("Error: "+e.toString());
+            updateConsole("Error: " + e.toString());
         }
         isWebDataServerRunning=false;
         myWebListener=null;
         setWebConnected(false);
-        updateView("--WebListener stopped--");
+        updateConsole("--WebListener stopped--");*/
+        webAgent.stopServer();
     }
 
     /**
@@ -139,12 +158,12 @@ public class HeadsUpDisplay extends Activity {
         try {
             piServerSocket.close();
         } catch(Exception e) {
-            updateView("Error: "+e.toString());
+            updateConsole("Error: " + e.toString());
         }
         isPiDataServerRunning = false;
         myPiListener = null;
         setPiConnected(false);
-        updateView("--PiListener stopped--");
+        updateConsole("--PiListener stopped--");
     }
 
     /**
@@ -152,7 +171,7 @@ public class HeadsUpDisplay extends Activity {
      * @param val
      */
     public void setWebConnected(boolean val){
-        webConnected.setChecked(val);
+        webConnected.setText(val?"Connected":"Not Connected");
     }
 
     /**
@@ -160,7 +179,7 @@ public class HeadsUpDisplay extends Activity {
      * @param val
      */
     public void setPiConnected(boolean val){
-        piConnected.setChecked(val);
+        piConnected.setText(val?"Connected":"Not Connected");
     }
 
     /**
@@ -184,7 +203,7 @@ public class HeadsUpDisplay extends Activity {
      * update the console text display view with the specified text
      * @param line the line of text to write to the console
      */
-    public void updateView(String line) {
+    public void updateConsole(String line) {
         try {
             console.append(line + "\n");
         } catch (Exception e) {
@@ -197,24 +216,24 @@ public class HeadsUpDisplay extends Activity {
      * instantiates the webServerOutput Buffered Writer
      * @param stream
      */
-    public void instantiateWriter(OutputStream stream) {
+    /*public void instantiateWriter(OutputStream stream) {
         webServerOutput = new BufferedWriter(new OutputStreamWriter(stream));
-    }
+    }*/
 
     /**
      * WebServer Listener Task for asynchronous communication between the phone and the PitView Web Server
      *
      * java why u make us use void as a type :-(
      */
-    private class WebListener extends AsyncTask<Void, Void, Void> {
+    /*public class WebListener extends AsyncTask<Void, Void, Void> {
 
         // the message queue string
         String pendingData = "";
 
-        /**
+        *//**
          * appends the string to the message queue
          * @param s
-         */
+         *//*
         public void sendData(String s) {
             //make sure there's no empty line if it's the first message in the queue
             if (pendingData.equals(""))
@@ -223,22 +242,22 @@ public class HeadsUpDisplay extends Activity {
                 pendingData += s + "\n";
         }
 
-        /**
+        *//**
          * updates the console text with the specified string
-         */
+         *//*
         public void updateUI(final String s) {
             //cannot access UI stuff on a non-UI thread
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    updateView(s);
+                    updateConsole(s);
                 }
             });
         }
 
-        /**
+        *//**
          * updates the Web Listener concoction indicator with the specified value
-         */
+         *//*
         public void updateConnected(final boolean val) {
             //cannot access UI stuff on a non-UI thread
             runOnUiThread(new Runnable() {
@@ -249,9 +268,9 @@ public class HeadsUpDisplay extends Activity {
             });
         }
 
-        /**
+        *//**
          * stops the web server
-         */
+         *//*
         public void bail() {
             //cannot access UI stuff on a non-UI thread
             runOnUiThread(new Runnable() {
@@ -262,14 +281,14 @@ public class HeadsUpDisplay extends Activity {
             });
         }
 
-        /**
+        *//**
          * task's main method, initiates connection/writer/sockets, continuous while loop
          * overrides the default doInBackground method
          * @param params an arbitrary number (0..*) of Void objects.
          *               Yep, void freaking objects. don't pass this anything.
          * @return void.
          *      yes, you can in fact return void type objects in java. don't do this in graded code.
-         */
+         *//*
         @Override
         protected Void doInBackground(Void... params) {
             try {
@@ -313,7 +332,7 @@ public class HeadsUpDisplay extends Activity {
             }
             return null;
         }
-    }
+    }*/
 
     /**
      * WebServer Listener Task for asynchronous communcation between the phone and the PitView Web Server
@@ -329,13 +348,13 @@ public class HeadsUpDisplay extends Activity {
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    updateView(s);
+                    updateConsole(s);
                 }
             });
         }
 
         /**
-         * updates the Web Listener conenction indicator with the specified value
+         * updates the Web Listener connection indicator with the specified value
          * @param val
          */
         public void updateConnected(final boolean val){
@@ -401,7 +420,8 @@ public class HeadsUpDisplay extends Activity {
                         if (!line.isEmpty()) {
                             updateUI(output);
                             //append the data to the web server message queue
-                            myWebListener.sendData(output);
+                            //myWebListener.sendData(output);
+                            webAgent.sendData(output);
                         }
                     }
                     updateUI("done receiving - now sent to blake");

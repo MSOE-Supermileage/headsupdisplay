@@ -8,7 +8,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Send Message"
-            android:id="@+id/button" android:onClick="sendData_onclick"/>
+            android:id="@+id/button" android:onClick="sendData_onClick"/>
     <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
@@ -26,10 +26,10 @@
                 android:id="@+id/startWeb" android:onClick="startWebClick"/>
         <Button android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Stop"
                 android:id="@+id/stopWeb" android:onClick="stopWebClick"/>
-        <CheckedTextView
+        <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Connected:"
+                android:text="Not Connected"
                 android:id="@+id/webConnected" android:checked="false"
                 android:checkMark="?android:attr/listChoiceIndicatorMultiple"/>
     </LinearLayout>
@@ -45,8 +45,8 @@
                 android:id="@+id/startPi" android:onClick="startPiClick"/>
         <Button android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Stop"
                 android:id="@+id/stopPi" android:onClick="stopPiClick"/>
-        <CheckedTextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-                         android:text="Connected:" android:id="@+id/piConnected" android:checked="false"
+        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                         android:text="Not Connected" android:id="@+id/piConnected" android:checked="false"
                          android:checkMark="?android:attr/listChoiceIndicatorMultiple"/>
     </LinearLayout>
     <ScrollView
