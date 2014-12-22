@@ -8,7 +8,7 @@
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
 
-    <application android:label="@string/app_name" android:icon="@drawable/ic_launcher">
+    <application android:label="@string/app_name" android:icon="@drawable/ic_launcher" android:allowBackup="true">
         <activity android:name="HeadsUpDisplay"
                   android:label="@string/app_name">
             <intent-filter>
@@ -16,5 +16,6 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
+        <service android:name=".VehicleConnectionAgent" />
     </application>
 </manifest>

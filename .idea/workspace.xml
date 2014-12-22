@@ -23,11 +23,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e590d05e-8dc5-4ae1-a8cd-e55884b66c31" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/edu/msoe/smv/raspirelay/ClientConnectionAgent.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/edu/msoe/smv/raspirelay/Logger.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/edu/msoe/smv/raspirelay/OutboundDomain.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/edu/msoe/smv/raspirelay/VehicalConnectionAgent.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/edu/msoe/smv/raspirelay/GaugeView.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/edu/msoe/smv/raspirelay/VehicalConnectionAgent.java" afterPath="$PROJECT_DIR$/src/edu/msoe/smv/raspirelay/VehicleConnectionAgent.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/AndroidManifest.xml" afterPath="$PROJECT_DIR$/AndroidManifest.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/AndroidRelay.iml" afterPath="$PROJECT_DIR$/AndroidRelay.iml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/edu/msoe/smv/raspirelay/HeadsUpDisplay.java" afterPath="$PROJECT_DIR$/src/edu/msoe/smv/raspirelay/HeadsUpDisplay.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/edu/msoe/smv/raspirelay/OutboundDomain.java" afterPath="$PROJECT_DIR$/src/edu/msoe/smv/raspirelay/OutboundDomain.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
@@ -40,6 +41,11 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="ChangesViewManager" flattened_view="true" show_ignored="false" />
+  <component name="Commander">
+    <leftPanel />
+    <rightPanel />
+    <splitter proportion="0.5" />
+  </component>
   <component name="CreatePatchCommitExecutor">
     <option name="PATCH_PATH" value="" />
   </component>
@@ -52,54 +58,57 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="HeadsUpDisplay.java" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="HeadsUpDisplay.java" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/edu/msoe/smv/raspirelay/HeadsUpDisplay.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="2827" max-vertical-offset="6256">
-              <caret line="387" column="45" selection-start-line="387" selection-start-column="45" selection-end-line="387" selection-end-column="45" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Logger.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/edu/msoe/smv/raspirelay/Logger.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="1127" max-vertical-offset="2057">
-              <caret line="103" column="21" selection-start-line="103" selection-start-column="21" selection-end-line="103" selection-end-column="21" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="OutboundDomain.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/edu/msoe/smv/raspirelay/OutboundDomain.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="544">
-              <caret line="16" column="0" selection-start-line="16" selection-start-column="0" selection-end-line="16" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="VehicalConnectionAgent.java" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/edu/msoe/smv/raspirelay/VehicalConnectionAgent.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.44299674" vertical-offset="0" max-vertical-offset="614">
-              <caret line="20" column="29" selection-start-line="20" selection-start-column="29" selection-end-line="20" selection-end-column="29" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ClientConnectionAgent.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/edu/msoe/smv/raspirelay/ClientConnectionAgent.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="578">
-              <caret line="25" column="0" selection-start-line="25" selection-start-column="0" selection-end-line="25" selection-end-column="0" />
+            <state vertical-scroll-proportion="0.13843648" vertical-offset="765" max-vertical-offset="9112">
+              <caret line="50" column="33" selection-start-line="50" selection-start-column="33" selection-end-line="50" selection-end-column="33" />
               <folding>
                 <element signature="n#!!doc" expanded="true" />
+                <element signature="imports" expanded="true" />
+                <element signature="e#3860#4303#0" expanded="true" />
+                <element signature="e#4292#4293#0" expanded="true" />
+                <element signature="e#4436#4437#0" expanded="true" />
+                <element signature="e#4468#4469#0" expanded="true" />
+                <element signature="e#4936#4937#0" expanded="true" />
+                <element signature="e#4976#4977#0" expanded="true" />
+                <element signature="e#5108#5109#0" expanded="true" />
+                <element signature="e#5147#5148#0" expanded="true" />
+                <element signature="e#5279#5280#0" expanded="true" />
+                <element signature="e#5312#5313#0" expanded="true" />
+                <element signature="e#5442#5443#0" expanded="true" />
+                <element signature="e#5474#5475#0" expanded="true" />
+                <element signature="e#7016#7017#0" expanded="true" />
+                <element signature="e#7089#7090#0" expanded="true" />
+                <element signature="e#7170#7171#0" expanded="true" />
+                <element signature="e#7242#7243#0" expanded="true" />
+                <element signature="e#12979#13127#0" expanded="true" />
+                <element signature="e#13112#13113#0" expanded="true" />
+                <element signature="e#13419#13570#0" expanded="true" />
+                <element signature="e#13555#13556#0" expanded="true" />
+                <element signature="e#13751#13899#0" expanded="true" />
+                <element signature="e#13884#13885#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="AndroidManifest.xml" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/AndroidManifest.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="459">
+              <caret line="5" column="42" selection-start-line="5" selection-start-column="42" selection-end-line="5" selection-end-column="42" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="VehicleConnectionAgent.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/edu/msoe/smv/raspirelay/VehicleConnectionAgent.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0" vertical-offset="372" max-vertical-offset="1496">
+              <caret line="67" column="0" selection-start-line="67" selection-start-column="0" selection-end-line="67" selection-end-column="0" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -112,28 +121,56 @@
     </FindUsagesManager>
   </component>
   <component name="Git.Settings">
+    <option name="PREVIOUS_COMMIT_AUTHORS">
+      <list>
+        <option value="Austin Hartline" />
+      </list>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/AndroidManifest.xml" />
         <option value="$PROJECT_DIR$/res/layout/headsupdisplay.xml" />
         <option value="$PROJECT_DIR$/src/socktester.py" />
-        <option value="$PROJECT_DIR$/src/edu/msoe/smv/raspirelay/OutboundDomain.java" />
         <option value="$PROJECT_DIR$/src/edu/msoe/smv/raspirelay/Logger.java" />
-        <option value="$PROJECT_DIR$/src/edu/msoe/smv/raspirelay/ClientConnectionAgent.java" />
-        <option value="$PROJECT_DIR$/src/edu/msoe/smv/raspirelay/VehicalConnectionAgent.java" />
-        <option value="$PROJECT_DIR$/src/edu/msoe/smv/raspirelay/HeadsUpDisplay.java" />
         <option value="$PROJECT_DIR$/src/edu/msoe/smv/raspirelay/InboundDomain.java" />
+        <option value="$PROJECT_DIR$/src/edu/msoe/smv/raspirelay/VehicalConnectionAgent.java" />
+        <option value="$PROJECT_DIR$/src/edu/msoe/smv/raspirelay/ClientConnectionAgent.java" />
+        <option value="$PROJECT_DIR$/src/edu/msoe/smv/raspirelay/OutboundDomain.java" />
+        <option value="$PROJECT_DIR$/res/layout/guage_layout.xml" />
+        <option value="$PROJECT_DIR$/src/edu/msoe/smv/raspirelay/GuageView.java" />
+        <option value="$PROJECT_DIR$/src/edu/msoe/smv/raspirelay/GaugeView.java" />
+        <option value="$PROJECT_DIR$/src/edu/msoe/smv/raspirelay/VehicleConnectionAgent.java" />
+        <option value="$PROJECT_DIR$/AndroidManifest.xml" />
+        <option value="$PROJECT_DIR$/src/edu/msoe/smv/raspirelay/HeadsUpDisplay.java" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="-1" />
+    <option name="x" value="64" />
     <option name="y" value="-4" />
-    <option name="width" value="1922" />
+    <option name="width" value="1857" />
     <option name="height" value="1085" />
+  </component>
+  <component name="ProjectInspectionProfilesVisibleTreeState">
+    <entry key="Project Default">
+      <profile-state>
+        <expanded-state>
+          <State>
+            <id />
+          </State>
+          <State>
+            <id>Android Lint</id>
+          </State>
+        </expanded-state>
+        <selected-state>
+          <State>
+            <id>AndroidLintUsesMinSdkAttributes</id>
+          </State>
+        </selected-state>
+      </profile-state>
+    </entry>
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <OptionsSetting value="true" id="Add" />
@@ -161,8 +198,8 @@
       <sortByType />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="PackagesPane" />
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -199,6 +236,38 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="AndroidRelay" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="AndroidRelay" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="res" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="AndroidRelay" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="AndroidRelay" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="res" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="layout" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
         </subPane>
       </pane>
     </panes>
@@ -219,6 +288,10 @@
     <property name="OverrideImplement.combined" value="true" />
     <property name="OverrideImplement.overriding.sorted" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/../../NetworkProtocols" />
+    <property name="project.structure.last.edited" value="Project" />
+    <property name="project.structure.proportion" value="0.0" />
+    <property name="project.structure.side.proportion" value="0.0" />
+    <property name="LayoutCode.rearrangeEntriesJava" value="false" />
   </component>
   <component name="PyConsoleOptionsProvider">
     <option name="myPythonConsoleState">
@@ -558,12 +631,22 @@
     </configuration>
   </component>
   <component name="ShelveChangesManager" show_recycled="false" />
+  <component name="SliceManager">
+    <option name="analysisUIOptions">
+      <AnalysisUIOptions />
+    </option>
+  </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
       <changelist id="e590d05e-8dc5-4ae1-a8cd-e55884b66c31" name="Default" comment="" />
       <created>1414259223451</created>
       <updated>1414259223451</updated>
     </task>
+    <task id="LOCAL-00001" summary="created classes for encapsulating some behaviors">
+      <created>1418487868293</created>
+      <updated>1418487868293</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TodoView" selected-index="0">
@@ -587,35 +670,36 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-1" y="-4" width="1922" height="1085" extended-state="6" />
-    <editor active="false" />
+    <frame x="64" y="-4" width="1857" height="1085" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32916668" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32916668" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32916668" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="IDEtalk Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="IDEtalk" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32916668" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32916668" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Build Variants" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Android" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32916668" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32916668" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Android" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32916668" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32916668" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.24919957" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.24875621" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.328125" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32924226" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.328911" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32916668" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
     </layout>
   </component>
   <component name="Vcs.Log.UiProperties">
@@ -633,6 +717,8 @@
     <option name="myTodoPanelSettings">
       <TodoPanelSettings />
     </option>
+    <MESSAGE value="created classes for encapsulating some behaviors" />
+    <option name="LAST_COMMIT_MESSAGE" value="created classes for encapsulating some behaviors" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
@@ -642,11 +728,262 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/src/edu/msoe/smv/raspirelay/OutboundDomain.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="476" max-vertical-offset="663">
+          <caret line="28" column="0" selection-start-line="28" selection-start-column="0" selection-end-line="28" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/edu/msoe/smv/raspirelay/VehicleConnectionAgent.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="391" max-vertical-offset="935">
+          <caret line="37" column="6" selection-start-line="37" selection-start-column="6" selection-end-line="37" selection-end-column="6" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/edu/msoe/smv/raspirelay/HeadsUpDisplay.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="7684">
+          <caret line="48" column="0" selection-start-line="48" selection-start-column="0" selection-end-line="48" selection-end-column="0" />
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+            <element signature="imports" expanded="true" />
+            <element signature="e#3860#4303#0" expanded="true" />
+            <element signature="e#4292#4293#0" expanded="true" />
+            <element signature="e#4436#4437#0" expanded="true" />
+            <element signature="e#4468#4469#0" expanded="true" />
+            <element signature="e#4936#4937#0" expanded="true" />
+            <element signature="e#4976#4977#0" expanded="true" />
+            <element signature="e#5108#5109#0" expanded="true" />
+            <element signature="e#5147#5148#0" expanded="true" />
+            <element signature="e#5279#5280#0" expanded="true" />
+            <element signature="e#5312#5313#0" expanded="true" />
+            <element signature="e#5442#5443#0" expanded="true" />
+            <element signature="e#5474#5475#0" expanded="true" />
+            <element signature="e#7016#7017#0" expanded="true" />
+            <element signature="e#7089#7090#0" expanded="true" />
+            <element signature="e#7170#7171#0" expanded="true" />
+            <element signature="e#7242#7243#0" expanded="true" />
+            <element signature="e#12979#13127#0" expanded="true" />
+            <element signature="e#13112#13113#0" expanded="true" />
+            <element signature="e#13419#13570#0" expanded="true" />
+            <element signature="e#13555#13556#0" expanded="true" />
+            <element signature="e#13751#13899#0" expanded="true" />
+            <element signature="e#13884#13885#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/AndroidManifest.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="340" max-vertical-offset="442">
+          <caret line="20" column="0" selection-start-line="20" selection-start-column="0" selection-end-line="20" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/edu/msoe/smv/raspirelay/WebClientConnectionAgent.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="493" max-vertical-offset="2703">
+          <caret line="29" column="0" selection-start-line="29" selection-start-column="0" selection-end-line="29" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/edu/msoe/smv/raspirelay/Logger.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="1122" max-vertical-offset="2057">
+          <caret line="66" column="5" selection-start-line="66" selection-start-column="5" selection-end-line="66" selection-end-column="5" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/edu/msoe/smv/raspirelay/OutboundDomain.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="476" max-vertical-offset="663">
+          <caret line="28" column="0" selection-start-line="28" selection-start-column="0" selection-end-line="28" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/edu/msoe/smv/raspirelay/VehicleConnectionAgent.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="680" max-vertical-offset="1173">
+          <caret line="40" column="28" selection-start-line="40" selection-start-column="28" selection-end-line="40" selection-end-column="28" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/edu/msoe/smv/raspirelay/HeadsUpDisplay.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="7684">
+          <caret line="48" column="0" selection-start-line="48" selection-start-column="0" selection-end-line="48" selection-end-column="0" />
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+            <element signature="imports" expanded="true" />
+            <element signature="e#3860#4303#0" expanded="true" />
+            <element signature="e#4292#4293#0" expanded="true" />
+            <element signature="e#4436#4437#0" expanded="true" />
+            <element signature="e#4468#4469#0" expanded="true" />
+            <element signature="e#4936#4937#0" expanded="true" />
+            <element signature="e#4976#4977#0" expanded="true" />
+            <element signature="e#5108#5109#0" expanded="true" />
+            <element signature="e#5147#5148#0" expanded="true" />
+            <element signature="e#5279#5280#0" expanded="true" />
+            <element signature="e#5312#5313#0" expanded="true" />
+            <element signature="e#5442#5443#0" expanded="true" />
+            <element signature="e#5474#5475#0" expanded="true" />
+            <element signature="e#7016#7017#0" expanded="true" />
+            <element signature="e#7089#7090#0" expanded="true" />
+            <element signature="e#7170#7171#0" expanded="true" />
+            <element signature="e#7242#7243#0" expanded="true" />
+            <element signature="e#12979#13127#0" expanded="true" />
+            <element signature="e#13112#13113#0" expanded="true" />
+            <element signature="e#13419#13570#0" expanded="true" />
+            <element signature="e#13555#13556#0" expanded="true" />
+            <element signature="e#13751#13899#0" expanded="true" />
+            <element signature="e#13884#13885#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/AndroidManifest.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="238" max-vertical-offset="442">
+          <caret line="14" column="67" selection-start-line="14" selection-start-column="67" selection-end-line="14" selection-end-column="67" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/edu/msoe/smv/raspirelay/WebClientConnectionAgent.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="493" max-vertical-offset="2703">
+          <caret line="29" column="0" selection-start-line="29" selection-start-column="0" selection-end-line="29" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/edu/msoe/smv/raspirelay/Logger.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="1122" max-vertical-offset="2057">
+          <caret line="66" column="5" selection-start-line="66" selection-start-column="5" selection-end-line="66" selection-end-column="5" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/edu/msoe/smv/raspirelay/OutboundDomain.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="476" max-vertical-offset="663">
+          <caret line="28" column="0" selection-start-line="28" selection-start-column="0" selection-end-line="28" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/edu/msoe/smv/raspirelay/VehicleConnectionAgent.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="680" max-vertical-offset="1173">
+          <caret line="40" column="28" selection-start-line="40" selection-start-column="28" selection-end-line="40" selection-end-column="28" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/edu/msoe/smv/raspirelay/HeadsUpDisplay.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="6494">
+          <caret line="244" column="11" selection-start-line="244" selection-start-column="11" selection-end-line="244" selection-end-column="11" />
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+            <element signature="imports" expanded="true" />
+            <element signature="e#3860#4303#0" expanded="true" />
+            <element signature="e#4292#4293#0" expanded="true" />
+            <element signature="e#4436#4437#0" expanded="true" />
+            <element signature="e#4468#4469#0" expanded="true" />
+            <element signature="e#4936#4937#0" expanded="true" />
+            <element signature="e#4976#4977#0" expanded="true" />
+            <element signature="e#5108#5109#0" expanded="true" />
+            <element signature="e#5147#5148#0" expanded="true" />
+            <element signature="e#5279#5280#0" expanded="true" />
+            <element signature="e#5312#5313#0" expanded="true" />
+            <element signature="e#5442#5443#0" expanded="true" />
+            <element signature="e#5474#5475#0" expanded="true" />
+            <element signature="e#7016#7017#0" expanded="true" />
+            <element signature="e#7089#7090#0" expanded="true" />
+            <element signature="e#7170#7171#0" expanded="true" />
+            <element signature="e#7242#7243#0" expanded="true" />
+            <element signature="e#12979#13127#0" expanded="true" />
+            <element signature="e#13112#13113#0" expanded="true" />
+            <element signature="e#13419#13570#0" expanded="true" />
+            <element signature="e#13555#13556#0" expanded="true" />
+            <element signature="e#13751#13899#0" expanded="true" />
+            <element signature="e#13884#13885#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/edu/msoe/smv/raspirelay/Logger.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="1122" max-vertical-offset="2057">
+          <caret line="66" column="5" selection-start-line="66" selection-start-column="5" selection-end-line="66" selection-end-column="5" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/edu/msoe/smv/raspirelay/OutboundDomain.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="408" max-vertical-offset="629">
+          <caret line="24" column="0" selection-start-line="24" selection-start-column="0" selection-end-line="24" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/edu/msoe/smv/raspirelay/VehicleConnectionAgent.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="238" max-vertical-offset="1666">
+          <caret line="14" column="0" selection-start-line="14" selection-start-column="0" selection-end-line="14" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/Downloads/android-sdk-linux/sources/android-19/java/net/DatagramSocket.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="612" max-vertical-offset="11254">
+          <caret line="36" column="13" selection-start-line="36" selection-start-column="13" selection-end-line="36" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/edu/msoe/smv/raspirelay/HeadsUpDisplay.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="7089">
           <caret line="164" column="0" selection-start-line="164" selection-start-column="0" selection-end-line="164" selection-end-column="0" />
-          <folding />
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+            <element signature="imports" expanded="true" />
+            <element signature="e#3860#4303#0" expanded="true" />
+            <element signature="e#4292#4293#0" expanded="true" />
+            <element signature="e#4436#4437#0" expanded="true" />
+            <element signature="e#4468#4469#0" expanded="true" />
+            <element signature="e#4936#4937#0" expanded="true" />
+            <element signature="e#4976#4977#0" expanded="true" />
+            <element signature="e#5108#5109#0" expanded="true" />
+            <element signature="e#5147#5148#0" expanded="true" />
+            <element signature="e#5279#5280#0" expanded="true" />
+            <element signature="e#5312#5313#0" expanded="true" />
+            <element signature="e#5442#5443#0" expanded="true" />
+            <element signature="e#5474#5475#0" expanded="true" />
+            <element signature="e#7016#7017#0" expanded="true" />
+            <element signature="e#7089#7090#0" expanded="true" />
+            <element signature="e#7170#7171#0" expanded="true" />
+            <element signature="e#7242#7243#0" expanded="true" />
+            <element signature="e#12979#13127#0" expanded="true" />
+            <element signature="e#13112#13113#0" expanded="true" />
+            <element signature="e#13419#13570#0" expanded="true" />
+            <element signature="e#13555#13556#0" expanded="true" />
+            <element signature="e#13751#13899#0" expanded="true" />
+            <element signature="e#13884#13885#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -666,7 +1003,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/edu/msoe/smv/raspirelay/VehicalConnectionAgent.java">
+    <entry file="file://$PROJECT_DIR$/src/edu/msoe/smv/raspirelay/VehicleConnectionAgent.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="340" max-vertical-offset="578">
           <caret line="20" column="29" selection-start-line="20" selection-start-column="29" selection-end-line="20" selection-end-column="29" />
@@ -674,21 +1011,36 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/edu/msoe/smv/raspirelay/ClientConnectionAgent.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="357" max-vertical-offset="578">
-          <caret line="21" column="0" selection-start-line="21" selection-start-column="0" selection-end-line="21" selection-end-column="0" />
-          <folding>
-            <element signature="n#!!doc" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/edu/msoe/smv/raspirelay/HeadsUpDisplay.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="2193">
           <caret line="94" column="41" selection-start-line="94" selection-start-column="41" selection-end-line="94" selection-end-column="41" />
-          <folding />
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+            <element signature="imports" expanded="true" />
+            <element signature="e#3860#4303#0" expanded="true" />
+            <element signature="e#4292#4293#0" expanded="true" />
+            <element signature="e#4436#4437#0" expanded="true" />
+            <element signature="e#4468#4469#0" expanded="true" />
+            <element signature="e#4936#4937#0" expanded="true" />
+            <element signature="e#4976#4977#0" expanded="true" />
+            <element signature="e#5108#5109#0" expanded="true" />
+            <element signature="e#5147#5148#0" expanded="true" />
+            <element signature="e#5279#5280#0" expanded="true" />
+            <element signature="e#5312#5313#0" expanded="true" />
+            <element signature="e#5442#5443#0" expanded="true" />
+            <element signature="e#5474#5475#0" expanded="true" />
+            <element signature="e#7016#7017#0" expanded="true" />
+            <element signature="e#7089#7090#0" expanded="true" />
+            <element signature="e#7170#7171#0" expanded="true" />
+            <element signature="e#7242#7243#0" expanded="true" />
+            <element signature="e#12979#13127#0" expanded="true" />
+            <element signature="e#13112#13113#0" expanded="true" />
+            <element signature="e#13419#13570#0" expanded="true" />
+            <element signature="e#13555#13556#0" expanded="true" />
+            <element signature="e#13751#13899#0" expanded="true" />
+            <element signature="e#13884#13885#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -701,21 +1053,46 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/res/layout/headsupdisplay.xml">
+      <provider editor-type-id="android-designer">
+        <state />
+      </provider>
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="102" max-vertical-offset="221">
           <caret line="6" column="31" selection-start-line="6" selection-start-column="31" selection-end-line="6" selection-end-column="31" />
           <folding />
         </state>
       </provider>
-      <provider editor-type-id="android-designer">
-        <state />
-      </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/edu/msoe/smv/raspirelay/HeadsUpDisplay.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="250" max-vertical-offset="1350">
           <caret line="36" column="27" selection-start-line="36" selection-start-column="27" selection-end-line="36" selection-end-column="27" />
-          <folding />
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+            <element signature="imports" expanded="true" />
+            <element signature="e#3860#4303#0" expanded="true" />
+            <element signature="e#4292#4293#0" expanded="true" />
+            <element signature="e#4436#4437#0" expanded="true" />
+            <element signature="e#4468#4469#0" expanded="true" />
+            <element signature="e#4936#4937#0" expanded="true" />
+            <element signature="e#4976#4977#0" expanded="true" />
+            <element signature="e#5108#5109#0" expanded="true" />
+            <element signature="e#5147#5148#0" expanded="true" />
+            <element signature="e#5279#5280#0" expanded="true" />
+            <element signature="e#5312#5313#0" expanded="true" />
+            <element signature="e#5442#5443#0" expanded="true" />
+            <element signature="e#5474#5475#0" expanded="true" />
+            <element signature="e#7016#7017#0" expanded="true" />
+            <element signature="e#7089#7090#0" expanded="true" />
+            <element signature="e#7170#7171#0" expanded="true" />
+            <element signature="e#7242#7243#0" expanded="true" />
+            <element signature="e#12979#13127#0" expanded="true" />
+            <element signature="e#13112#13113#0" expanded="true" />
+            <element signature="e#13419#13570#0" expanded="true" />
+            <element signature="e#13555#13556#0" expanded="true" />
+            <element signature="e#13751#13899#0" expanded="true" />
+            <element signature="e#13884#13885#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -728,110 +1105,328 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/res/layout/headsupdisplay.xml">
+      <provider editor-type-id="android-designer">
+        <state />
+      </provider>
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="144" max-vertical-offset="252">
           <caret line="8" column="10" selection-start-line="8" selection-start-column="10" selection-end-line="8" selection-end-column="10" />
           <folding />
         </state>
-      </provider>
-      <provider editor-type-id="android-designer">
-        <state />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/edu/msoe/smv/raspirelay/HeadsUpDisplay.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1386">
           <caret line="57" column="50" selection-start-line="57" selection-start-column="50" selection-end-line="57" selection-end-column="50" />
-          <folding />
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+            <element signature="imports" expanded="true" />
+            <element signature="e#3860#4303#0" expanded="true" />
+            <element signature="e#4292#4293#0" expanded="true" />
+            <element signature="e#4436#4437#0" expanded="true" />
+            <element signature="e#4468#4469#0" expanded="true" />
+            <element signature="e#4936#4937#0" expanded="true" />
+            <element signature="e#4976#4977#0" expanded="true" />
+            <element signature="e#5108#5109#0" expanded="true" />
+            <element signature="e#5147#5148#0" expanded="true" />
+            <element signature="e#5279#5280#0" expanded="true" />
+            <element signature="e#5312#5313#0" expanded="true" />
+            <element signature="e#5442#5443#0" expanded="true" />
+            <element signature="e#5474#5475#0" expanded="true" />
+            <element signature="e#7016#7017#0" expanded="true" />
+            <element signature="e#7089#7090#0" expanded="true" />
+            <element signature="e#7170#7171#0" expanded="true" />
+            <element signature="e#7242#7243#0" expanded="true" />
+            <element signature="e#12979#13127#0" expanded="true" />
+            <element signature="e#13112#13113#0" expanded="true" />
+            <element signature="e#13419#13570#0" expanded="true" />
+            <element signature="e#13555#13556#0" expanded="true" />
+            <element signature="e#13751#13899#0" expanded="true" />
+            <element signature="e#13884#13885#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/res/layout/headsupdisplay.xml">
+      <provider editor-type-id="android-designer">
+        <state />
+      </provider>
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="144" max-vertical-offset="252">
           <caret line="8" column="10" selection-start-line="8" selection-start-column="10" selection-end-line="8" selection-end-column="10" />
           <folding />
         </state>
       </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/res/layout/headsupdisplay.xml">
       <provider editor-type-id="android-designer">
         <state />
       </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/AndroidManifest.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="136" max-vertical-offset="442">
-          <caret line="8" column="71" selection-start-line="8" selection-start-column="71" selection-end-line="8" selection-end-column="71" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/res/layout/headsupdisplay.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-26.965517" vertical-offset="187" max-vertical-offset="1088">
           <caret line="57" column="17" selection-start-line="57" selection-start-column="17" selection-end-line="57" selection-end-column="17" />
           <folding />
         </state>
       </provider>
-      <provider editor-type-id="android-designer">
-        <state />
+    </entry>
+    <entry file="file://$USER_HOME$/Downloads/android-sdk-linux/sources/android-19/java/net/DatagramSocketImplFactory.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.30456027" vertical-offset="0" max-vertical-offset="614">
+          <caret line="26" column="17" selection-start-line="26" selection-start-column="17" selection-end-line="26" selection-end-column="17" />
+        </state>
       </provider>
     </entry>
-    <entry file="file://$USER_HOME$/Downloads/android-sdk-linux/sources/android-19/android/os/AsyncTask.java">
+    <entry file="file://$USER_HOME$/Downloads/android-sdk-linux/sources/android-19/java/net/DatagramSocketImpl.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="1.1351792" vertical-offset="0" max-vertical-offset="10676">
-          <caret line="68" column="30" selection-start-line="68" selection-start-column="30" selection-end-line="68" selection-end-column="30" />
+        <state vertical-scroll-proportion="-1.7442997" vertical-offset="1224" max-vertical-offset="4335">
+          <caret line="25" column="22" selection-start-line="25" selection-start-column="22" selection-end-line="25" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/Downloads/android-sdk-linux/sources/android-19/java/net/DatagramSocket.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="255" max-vertical-offset="10574">
+          <caret line="36" column="13" selection-start-line="36" selection-start-column="13" selection-end-line="36" selection-end-column="13" />
         </state>
       </provider>
     </entry>
     <entry file="file://$USER_HOME$/Downloads/android-sdk-linux/sources/android-19/java/lang/Void.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.32899022" vertical-offset="2" max-vertical-offset="680">
-          <caret line="27" column="19" selection-start-line="27" selection-start-column="19" selection-end-line="27" selection-end-column="19" />
+        <state vertical-scroll-proportion="0.33224756" vertical-offset="0" max-vertical-offset="663">
+          <caret line="28" column="0" selection-start-line="28" selection-start-column="0" selection-end-line="28" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/Downloads/android-sdk-linux/sources/android-19/android/os/AsyncTask.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.33224756" vertical-offset="8109" max-vertical-offset="10676">
+          <caret line="533" column="53" selection-start-line="533" selection-start-column="53" selection-end-line="533" selection-end-column="53" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/edu/msoe/smv/raspirelay/OutboundDomain.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="578">
+          <caret line="28" column="0" selection-start-line="28" selection-start-column="0" selection-end-line="28" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/edu/msoe/smv/raspirelay/GaugeView.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.18049328" vertical-offset="740" max-vertical-offset="7327">
+          <caret line="53" column="0" selection-start-line="53" selection-start-column="0" selection-end-line="53" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/edu/msoe/smv/raspirelay/WebClientConnectionAgent.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="357" max-vertical-offset="2312">
+          <caret line="29" column="0" selection-start-line="29" selection-start-column="0" selection-end-line="29" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/Downloads/android-sdk-linux/sources/android-19/android/content/Intent.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="62820" max-vertical-offset="121822">
+          <caret line="3770" column="11" selection-start-line="3770" selection-start-column="11" selection-end-line="3770" selection-end-column="11" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/Downloads/android-sdk-linux/sources/android-19/android/content/ContextWrapper.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.33333334" vertical-offset="5640" max-vertical-offset="8347">
+          <caret line="514" column="19" selection-start-line="514" selection-start-column="19" selection-end-line="514" selection-end-column="19" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/Downloads/android-sdk-linux/sources/android-19/android/content/Context.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.99139786" vertical-offset="35713" max-vertical-offset="49028">
+          <caret line="2211" column="31" selection-start-line="2211" selection-start-column="31" selection-end-line="2211" selection-end-column="31" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/edu/msoe/smv/raspirelay/Logger.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="831" max-vertical-offset="2057">
-          <caret line="103" column="21" selection-start-line="103" selection-start-column="21" selection-end-line="103" selection-end-column="21" />
+        <state vertical-scroll-proportion="0.2139785" vertical-offset="719" max-vertical-offset="1853">
+          <caret line="66" column="5" selection-start-line="66" selection-start-column="5" selection-end-line="66" selection-end-column="5" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/Downloads/android-sdk-linux/sources/android-19/android/app/Service.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.4247312" vertical-offset="4943" max-vertical-offset="11611">
+          <caret line="344" column="7" selection-start-line="344" selection-start-column="7" selection-end-line="344" selection-end-column="7" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/Downloads/android-sdk-linux/sources/android-19/android/os/IBinder.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-0.62842464" vertical-offset="1591" max-vertical-offset="4403">
+          <caret line="87" column="28" selection-start-line="87" selection-start-column="26" selection-end-line="87" selection-end-column="28" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/Downloads/android-sdk-linux/sources/android-19/android/os/Binder.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.32020548" vertical-offset="153" max-vertical-offset="8058">
+          <caret line="42" column="3" selection-start-line="42" selection-start-column="3" selection-end-line="42" selection-end-column="3" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/edu/msoe/smv/raspirelay/VehicleConnectionAgent.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="372" max-vertical-offset="1496">
+          <caret line="67" column="0" selection-start-line="67" selection-start-column="0" selection-end-line="67" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/AndroidManifest.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="459">
+          <caret line="5" column="42" selection-start-line="5" selection-start-column="42" selection-end-line="5" selection-end-column="42" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/Downloads/android-sdk-linux/sources/android-19/android/content/ComponentName.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.47068405" vertical-offset="255" max-vertical-offset="5168">
+          <caret line="50" column="21" selection-start-line="50" selection-start-column="21" selection-end-line="50" selection-end-column="21" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/edu/msoe/smv/raspirelay/HeadsUpDisplay.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="2827" max-vertical-offset="6256">
-          <caret line="387" column="45" selection-start-line="387" selection-start-column="45" selection-end-line="387" selection-end-column="45" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/edu/msoe/smv/raspirelay/OutboundDomain.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="544">
-          <caret line="16" column="0" selection-start-line="16" selection-start-column="0" selection-end-line="16" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/edu/msoe/smv/raspirelay/ClientConnectionAgent.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="578">
-          <caret line="25" column="0" selection-start-line="25" selection-start-column="0" selection-end-line="25" selection-end-column="0" />
+        <state vertical-scroll-proportion="0.13843648" vertical-offset="765" max-vertical-offset="9112">
+          <caret line="50" column="33" selection-start-line="50" selection-start-column="33" selection-end-line="50" selection-end-column="33" />
           <folding>
             <element signature="n#!!doc" expanded="true" />
+            <element signature="imports" expanded="true" />
+            <element signature="e#3860#4303#0" expanded="true" />
+            <element signature="e#4292#4293#0" expanded="true" />
+            <element signature="e#4436#4437#0" expanded="true" />
+            <element signature="e#4468#4469#0" expanded="true" />
+            <element signature="e#4936#4937#0" expanded="true" />
+            <element signature="e#4976#4977#0" expanded="true" />
+            <element signature="e#5108#5109#0" expanded="true" />
+            <element signature="e#5147#5148#0" expanded="true" />
+            <element signature="e#5279#5280#0" expanded="true" />
+            <element signature="e#5312#5313#0" expanded="true" />
+            <element signature="e#5442#5443#0" expanded="true" />
+            <element signature="e#5474#5475#0" expanded="true" />
+            <element signature="e#7016#7017#0" expanded="true" />
+            <element signature="e#7089#7090#0" expanded="true" />
+            <element signature="e#7170#7171#0" expanded="true" />
+            <element signature="e#7242#7243#0" expanded="true" />
+            <element signature="e#12979#13127#0" expanded="true" />
+            <element signature="e#13112#13113#0" expanded="true" />
+            <element signature="e#13419#13570#0" expanded="true" />
+            <element signature="e#13555#13556#0" expanded="true" />
+            <element signature="e#13751#13899#0" expanded="true" />
+            <element signature="e#13884#13885#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/edu/msoe/smv/raspirelay/VehicalConnectionAgent.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.44299674" vertical-offset="0" max-vertical-offset="614">
-          <caret line="20" column="29" selection-start-line="20" selection-start-column="29" selection-end-line="20" selection-end-column="29" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
+  </component>
+  <component name="masterDetails">
+    <states>
+      <state key="ArtifactsStructureConfigurable.UI">
+        <settings>
+          <artifact-editor />
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="FacetStructureConfigurable.UI">
+        <settings>
+          <last-edited>Android</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="GlobalLibrariesConfigurable.UI">
+        <settings>
+          <last-edited>Python 2.7.6 (/usr/bin/python2.7) interpreter library</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="JdkListConfigurable.UI">
+        <settings>
+          <last-edited>1.7.0</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="ModuleStructureConfigurable.UI">
+        <settings>
+          <last-edited>AndroidRelay</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="ProjectJDKs.UI">
+        <settings>
+          <last-edited>Android API 20 Platform</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="ProjectLibrariesConfigurable.UI">
+        <settings>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+    </states>
   </component>
 </project>
 

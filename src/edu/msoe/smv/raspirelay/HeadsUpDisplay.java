@@ -11,31 +11,91 @@ package edu.msoe.smv.raspirelay;
  */
 
 import android.app.Activity;
+import android.content.ComponentName;
+import android.content.Intent;
+import android.content.ServiceConnection;
 import android.net.wifi.WifiManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.IBinder;
+import android.os.SystemClock;
 import android.text.format.Formatter;
 import android.view.View;
-import android.widget.CheckedTextView;
 import android.widget.TextView;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.SocketException;
+import java.util.ArrayList;
 
+/**
+ * the main activity
+ */
 public class HeadsUpDisplay extends Activity {
 
+    // layout references
     public TextView console;
     public TextView webConnected, piConnected;
+
+    // old
     public WebClientConnectionAgent webAgent;
-    private ServerSocket piServerSocket/*, webServerSocket */;
-    //public WebListener myWebListener;
+    private ServerSocket piServerSocket;
+    //    public WebListener myWebListener;
     public PiListener myPiListener;
-    public boolean isPiDataServerRunning=true/*,isWebDataServerRunning=true*/;
-    //private long startTime;
-    /*BufferedWriter webServerOutput;
-    Socket webServerDataSocket =null;*/
+    public boolean isPiDataServerRunning = true;
+    private long startTime;
+
+    // new connection controllers
+    private VehicleConnectionAgent vehicleConnectionAgent = null;
+    private boolean vehicleConnectionBound = false;
+
+    private WebClientConnectionAgent webClientConnectionAgent = null;
+    private boolean clientConnectionHandlerBound = false;
+
+    /**
+     *
+     */
+    private ServiceConnection connection = new ServiceConnection() {
+        /**
+         *
+         * @param name
+         * @param service
+         */
+        @Override
+        public void onServiceConnected(ComponentName name, IBinder service) {
+            // compare classnames so we can reuse this class for both client and vehicle connections
+            if (name.getClass().equals(VehicleConnectionAgent.class)) {
+                // we have a vehicle service connection
+                vehicleConnectionAgent = ((VehicleConnectionAgent.VehicleConnectionServiceBinder) service).getService();
+                vehicleConnectionBound = true;
+            } else if (name.getClass().equals(WebClientConnectionAgent.class)) {
+                // TODO
+                // we have a client service connection agent
+//                webClientConnectionAgent = ((WebClientConnectionAgent.ClientConnectionServiceBinder) service).getBinder();
+//                clientConnectionHandlerBound = true;
+            }
+            // else do nothing
+        }
+
+        /**
+         *
+         * @param name
+         */
+        @Override
+        public void onServiceDisconnected(ComponentName name) {
+            if (name.getClass().equals(VehicleConnectionAgent.class)) {
+                vehicleConnectionAgent = null;
+                vehicleConnectionBound = false;
+            } else if (name.getClass().equals(WebClientConnectionAgent.class)) {
+                webClientConnectionAgent = null;
+                clientConnectionHandlerBound = false;
+            }
+            // else do nothing
+        }
+    };
 
 
     @Override
@@ -43,90 +103,119 @@ public class HeadsUpDisplay extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.headsupdisplay);
 
-        //startTime = SystemClock.currentThreadTimeMillis();
+        startTime = SystemClock.currentThreadTimeMillis();
 //        String hostName = "155.92.179.102";
 
-        console = (TextView)findViewById(R.id.console);
+        console = (TextView) findViewById(R.id.console);
 
-        //get public IP from Wifi Manager
+        // get public IP from Wifi Manager
         WifiManager wm = (WifiManager) getSystemService(WIFI_SERVICE);
-        String ip  = Formatter.formatIpAddress(wm.getConnectionInfo().getIpAddress());
+        String ip = Formatter.formatIpAddress(wm.getConnectionInfo().getIpAddress());
         updateConsole("my ip: " + ip);
 
-        //get connection status displays
-        webConnected = (TextView)findViewById(R.id.webConnected);
-        piConnected = (TextView)findViewById(R.id.piConnected);
+        // get connection status displays
+        webConnected = (TextView) findViewById(R.id.webConnected);
+        piConnected = (TextView) findViewById(R.id.piConnected);
 
-        startWebServerListener();
+        // TODO
+
+
+
+
+        new Thread(new Runnable() {
+            public void run() {
+//                startService(new Intent(getBaseContext(), VehicleConnectionAgent.class));
+//
+//                try {
+//                    Thread.sleep(5000);
+//                } catch (InterruptedException e) {
+//                    e.printStackTrace();
+//                }
+//
+//                stopService(new Intent(getBaseContext(), VehicleConnectionAgent.class));
+            }
+        }).start();
+
+
+
+        // TODO - what if we used sqlite to store relational data?
+
     }
 
-    public void sendData_onClick(View v){
+
+
+
+    public void sendData_onClick(View v) {
         sendRandomData();
     }
 
-    public void sendRandomData(){
-        /*if(myWebListener!=null){
-            String data=new Data().randomize().toString();
-            myWebListener.sendData(data);
-        }*/
-        if(webAgent!=null){
-            String data=new Data().randomize().toString();
+    public void sendRandomData() {
+//        if(myWebListener!=null){
+//            String data=new Data().randomize().toString();
+//            myWebListener.sendData(data);
+//        }
+        if (webAgent != null) {
+            String data = new Data().randomize().toString();
             webAgent.sendData(data);
         }
     }
 
     /**
      * onClick method for the startWebListener button
+     *
      * @param v
      */
-    public void startWebClick(View v){
+    public void startWebClick(View v) {
         startWebServerListener();
     }
 
     /**
      * onClick method for the stopWebListener button
+     *
      * @param v
      */
-    public void stopWebClick(View v){
+    public void stopWebClick(View v) {
         stopWebServerListener();
     }
 
     /**
      * onClick method for the startPiListener button
+     *
      * @param v
      */
-    public void startPiClick(View v){
+    public void startPiClick(View v) {
         startPiListener();
     }
 
     /**
      * onClick method for the stopPiListener button
+     *
      * @param v
      */
-    public void stopPiClick(View v){
+    public void stopPiClick(View v) {
         stopPiListener();
     }
 
     /**
      *
      */
-    public void startWebServerListener(){
+    public void startWebServerListener() {
         /*if (myWebListener != null)
             stopWebServerListener();
         isWebDataServerRunning=true;
         myWebListener=new WebListener();
         myWebListener.execute();*/
-        if(webAgent!=null){
+        if (webAgent != null) {
             webAgent.stopServer();
         }
-        webAgent=new WebClientConnectionAgent(this);
+        webAgent = new WebClientConnectionAgent(this);
         webAgent.startServer();
     }
 
     /**
      *
      */
-    public void stopWebServerListener(){
+    public void stopWebServerListener() {
         /*try {
             webServerSocket.close();
             webServerOutput.close();
@@ -143,7 +232,7 @@ public class HeadsUpDisplay extends Activity {
     /**
      *
      */
-    public void startPiListener(){
+    public void startPiListener() {
         if (myPiListener != null)
             stopPiListener();
         isPiDataServerRunning = true;
@@ -154,10 +243,10 @@ public class HeadsUpDisplay extends Activity {
     /**
      *
      */
-    public void stopPiListener(){
+    public void stopPiListener() {
         try {
             piServerSocket.close();
-        } catch(Exception e) {
+        } catch (Exception e) {
             updateConsole("Error: " + e.toString());
         }
         isPiDataServerRunning = false;
@@ -167,19 +256,17 @@ public class HeadsUpDisplay extends Activity {
     }
 
     /**
-     *
      * @param val
      */
-    public void setWebConnected(boolean val){
-        webConnected.setText(val?"Connected":"Not Connected");
+    public void setWebConnected(boolean val) {
+        webConnected.setText(val ? "Connected" : "Not Connected");
     }
 
     /**
-     *
      * @param val
      */
-    public void setPiConnected(boolean val){
-        piConnected.setText(val?"Connected":"Not Connected");
+    public void setPiConnected(boolean val) {
+        piConnected.setText(val ? "Connected" : "Not Connected");
     }
 
     /**
@@ -201,6 +288,7 @@ public class HeadsUpDisplay extends Activity {
 
     /**
      * update the console text display view with the specified text
+     *
      * @param line the line of text to write to the console
      */
     public void updateConsole(String line) {
@@ -231,9 +319,9 @@ public class HeadsUpDisplay extends Activity {
         String pendingData = "";
 
         *//**
-         * appends the string to the message queue
-         * @param s
-         *//*
+     * appends the string to the message queue
+     * @param s
+     *//*
         public void sendData(String s) {
             //make sure there's no empty line if it's the first message in the queue
             if (pendingData.equals(""))
@@ -243,8 +331,8 @@ public class HeadsUpDisplay extends Activity {
         }
 
         *//**
-         * updates the console text with the specified string
-         *//*
+     * updates the console text with the specified string
+     *//*
         public void updateUI(final String s) {
             //cannot access UI stuff on a non-UI thread
             runOnUiThread(new Runnable() {
@@ -256,8 +344,8 @@ public class HeadsUpDisplay extends Activity {
         }
 
         *//**
-         * updates the Web Listener concoction indicator with the specified value
-         *//*
+     * updates the Web Listener concoction indicator with the specified value
+     *//*
         public void updateConnected(final boolean val) {
             //cannot access UI stuff on a non-UI thread
             runOnUiThread(new Runnable() {
@@ -269,8 +357,8 @@ public class HeadsUpDisplay extends Activity {
         }
 
         *//**
-         * stops the web server
-         *//*
+     * stops the web server
+     *//*
         public void bail() {
             //cannot access UI stuff on a non-UI thread
             runOnUiThread(new Runnable() {
@@ -282,13 +370,13 @@ public class HeadsUpDisplay extends Activity {
         }
 
         *//**
-         * task's main method, initiates connection/writer/sockets, continuous while loop
-         * overrides the default doInBackground method
-         * @param params an arbitrary number (0..*) of Void objects.
-         *               Yep, void freaking objects. don't pass this anything.
-         * @return void.
-         *      yes, you can in fact return void type objects in java. don't do this in graded code.
-         *//*
+     * task's main method, initiates connection/writer/sockets, continuous while loop
+     * overrides the default doInBackground method
+     * @param params an arbitrary number (0..*) of Void objects.
+     *               Yep, void freaking objects. don't pass this anything.
+     * @return void.
+     *      yes, you can in fact return void type objects in java. don't do this in graded code.
+     *//*
         @Override
         protected Void doInBackground(Void... params) {
             try {
@@ -341,9 +429,10 @@ public class HeadsUpDisplay extends Activity {
 
         /**
          * Updates the console text with the specified string
+         *
          * @param s
          */
-        public void updateUI(final String s){
+        public void updateUI(final String s) {
             //cannot access UI stuff on a non-UI thread
             runOnUiThread(new Runnable() {
                 @Override
@@ -355,9 +444,10 @@ public class HeadsUpDisplay extends Activity {
 
         /**
          * updates the Web Listener connection indicator with the specified value
+         *
          * @param val
          */
-        public void updateConnected(final boolean val){
+        public void updateConnected(final boolean val) {
             //cannot access UI stuff on a non-UI thread
             runOnUiThread(new Runnable() {
                 @Override
@@ -383,6 +473,7 @@ public class HeadsUpDisplay extends Activity {
         /**
          * task's main method, initiates connection/reader/sockets, continuous while loop
          * overrides the default doInBackground method
+         *
          * @param params
          * @return
          */
@@ -426,11 +517,11 @@ public class HeadsUpDisplay extends Activity {
                     }
                     updateUI("done receiving - now sent to blake");
                 }
-            } catch(SocketException se) {
+            } catch (SocketException se) {
                 //connection was interrupted, closed on one end, or nullified
                 updateUI("Pi connection interrupted, shutting down...");
                 bail();
-            } catch(Exception e){
+            } catch (Exception e) {
                 updateUI("Error: " + e.toString());
             }
 
