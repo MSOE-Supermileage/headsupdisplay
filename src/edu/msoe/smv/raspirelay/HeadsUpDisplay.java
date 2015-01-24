@@ -21,6 +21,7 @@ import android.os.IBinder;
 import android.os.SystemClock;
 import android.text.format.Formatter;
 import android.view.View;
+import android.widget.CheckBox;
 import android.widget.TextView;
 
 import java.io.BufferedReader;
@@ -96,7 +97,27 @@ public class HeadsUpDisplay extends Activity {
             // else do nothing
         }
     };
+    //just to supply the server with random data
+    Thread randomDataThread;
+    public void changeContinuousRandomDataThread(View v) {
+        CheckBox running=(CheckBox)findViewById(R.id.sendContinuousCB);
+        if(running.isChecked()) {
+            randomDataThread = new Thread(new Runnable() {
+                public void run() {
+                    CheckBox running=(CheckBox)findViewById(R.id.sendContinuousCB);
+                    while(running.isChecked()) {
+                        sendRandomData();
+                        try {
+                            Thread.sleep(250);
+                        } catch (Exception e) {
 
+                        }
+                    }
+                }
+            });
+            randomDataThread.start();
+        }
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {

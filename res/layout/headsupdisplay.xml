@@ -9,6 +9,12 @@
             android:layout_height="wrap_content"
             android:text="Send Message"
             android:id="@+id/button" android:onClick="sendData_onClick"/>
+    <CheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Continuous Random Data"
+            android:id="@+id/sendContinuousCB" android:checked="false"
+            android:onClick="changeContinuousRandomDataThread"/>
     <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"

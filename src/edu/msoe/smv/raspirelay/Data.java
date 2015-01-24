@@ -30,8 +30,8 @@ public class Data {
 
     @Override
     public String toString(){
-        String data="{'mpg':"+mpg+",'batteryVoltage':"+batteryVoltage+
-                ",'fuelRemaining':"+fuelRemaining+"}";
+        String data="{\"mpg\":"+mpg+",\"batteryVoltage\":"+batteryVoltage+
+                ",\"fuelRemaining\":"+fuelRemaining+"}";
         return data;
     }
 }
