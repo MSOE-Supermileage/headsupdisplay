@@ -20,17 +20,16 @@ import android.os.Bundle;
 import android.os.IBinder;
 import android.os.SystemClock;
 import android.text.format.Formatter;
+import android.util.Log;
 import android.view.View;
 import android.widget.CheckBox;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.ServerSocket;
-import java.net.Socket;
-import java.net.SocketException;
+import java.io.*;
+import java.net.*;
 import java.util.ArrayList;
+import java.util.Enumeration;
 
 /**
  * the main activity
@@ -119,6 +118,32 @@ public class HeadsUpDisplay extends Activity {
         }
     }
 
+    public String getMyIP(){
+        final String[] url = {"http://checkip.amazonaws.com"};
+        final String[] result = {""};
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try(BufferedReader reader=new BufferedReader(new InputStreamReader(new URL(url[0]).openStream()));){
+
+                    Log.i("Hiya!","///////////////////(" + result[0] + ")////////////////////");
+                    result[0] =reader.readLine();
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            updateConsole(result[0]);
+                        }
+                    });
+                    Log.i("Hiya!","///////////////////(" + result[0] + ")////////////////////");
+                }catch(Exception e){
+                    e.printStackTrace();
+                    updateConsole(e.toString());
+                }
+            }
+        }).start();
+
+        return result[0];
+    }
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -131,7 +156,21 @@ public class HeadsUpDisplay extends Activity {
 
         // get public IP from Wifi Manager
         WifiManager wm = (WifiManager) getSystemService(WIFI_SERVICE);
-        String ip = Formatter.formatIpAddress(wm.getConnectionInfo().getIpAddress());
+        //String ip = Formatter.formatIpAddress(wm.getConnectionInfo().getIpAddress());
+        String ip=getMyIP();
+        /*try {
+            for (Enumeration<NetworkInterface> en = NetworkInterface.getNetworkInterfaces(); en.hasMoreElements(); ) {
+                NetworkInterface intf = en.nextElement();
+                for (Enumeration<InetAddress> enumIpAddr = intf.getInetAddresses(); enumIpAddr.hasMoreElements(); ) {
+                    InetAddress inetAddress = enumIpAddr.nextElement();
+                    if (!inetAddress.isLoopbackAddress() && inetAddress instanceof Inet4Address) {
+                        ip = ip + inetAddress.getHostAddress().toString();
+                    }
+                }
+            }
+        }catch(Exception e){
+            e.printStackTrace();
+        }*/
         updateConsole("my ip: " + ip);
 
         // get connection status displays
@@ -139,7 +178,6 @@ public class HeadsUpDisplay extends Activity {
         piConnected = (TextView) findViewById(R.id.piConnected);
 
         // TODO
-
 
 
 
@@ -319,6 +357,13 @@ public class HeadsUpDisplay extends Activity {
             System.out.println(console);
             console.append(e.toString());
         }
+        final ScrollView s=(ScrollView)findViewById(R.id.scrollView);
+        s.post(new Runnable() {
+            @Override
+            public void run() {
+                s.fullScroll(ScrollView.FOCUS_DOWN);
+            }
+        });
     }
 
     /**
