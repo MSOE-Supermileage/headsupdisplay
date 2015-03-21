@@ -8,12 +8,12 @@ package edu.msoe.smv.raspirelay;
 
 import android.os.AsyncTask;
 
+import javax.net.ssl.HttpsURLConnection;
 import java.io.BufferedWriter;
+import java.io.DataOutputStream;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
-import java.net.ServerSocket;
-import java.net.Socket;
-import java.net.SocketException;
+import java.net.*;
 
 /**
  * @author austin & Blake
@@ -22,8 +22,8 @@ import java.net.SocketException;
 public class WebClientConnectionAgent extends AsyncTask<Void, Void, Void> {
     private HeadsUpDisplay display;
     private ServerSocket serverSocket;
-    private Socket dataSocket;
-    private BufferedWriter serverOutput;
+    //private Socket dataSocket;
+    //private BufferedWriter serverOutput;
     public boolean isRunning;
     // the message queue string
     private String pendingData = "";
@@ -37,10 +37,10 @@ public class WebClientConnectionAgent extends AsyncTask<Void, Void, Void> {
         isRunning = false;
         try {
             serverSocket.close();
-            dataSocket.close();
-            serverOutput.close();
-        }catch(Exception e){
-            updateUI("Error! (" + e.toString()+")");
+            //dataSocket.close();
+            //serverOutput.close();
+        } catch (Exception e) {
+            updateUI("Error! (" + e.toString() + ")");
         }
         updateConnected(false);
         updateUI("--Pitview Connection Stopped--");
@@ -61,7 +61,7 @@ public class WebClientConnectionAgent extends AsyncTask<Void, Void, Void> {
             pendingData = s;
         else
             pendingData += "\n" + s;
-        updateUI("Sent '"+s+"' to PitView");
+        updateUI("Sent '" + s + "' to PitView");
     }
 
     /**
@@ -95,7 +95,7 @@ public class WebClientConnectionAgent extends AsyncTask<Void, Void, Void> {
      */
 
     private void instantiateWriter(OutputStream stream) {
-        serverOutput = new BufferedWriter(new OutputStreamWriter(stream));
+        //serverOutput = new BufferedWriter(new OutputStreamWriter(stream));
     }
 
     /**
@@ -117,26 +117,37 @@ public class WebClientConnectionAgent extends AsyncTask<Void, Void, Void> {
             serverSocket = new ServerSocket(1112);
             //instantiate the connection with the PitView web server as the accepted socket from the PitView connection request
             //      CODE WAITS HERE UNTIL PITVIEW SENDS CONNECTION REQUEST
-            dataSocket = serverSocket.accept();
+            //dataSocket = serverSocket.accept();
             //update the connection indicator
             updateConnected(true);
             //welcome message
             updateUI("PitView v1.0");
-            updateUI("Connected to PitView (IP = " + dataSocket.getRemoteSocketAddress().toString().substring(1));
+            //updateUI("Connected to PitView (IP = " + dataSocket.getRemoteSocketAddress().toString().substring(1));
             //instantiate the data writer to relay the data to PitView
-            instantiateWriter(dataSocket.getOutputStream());
+            //instantiateWriter(dataSocket.getOutputStream());
             //add data to the message queue
             sendData("Connection initialized");
             //repeat while server is on
             while (isRunning) {
                 //if queue isn't empty
                 if (!pendingData.equals("")) {
+                    URL url = new URL("http://msoesmv.hostei.com/webRelay.php");
+                    HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+                    connection.setRequestMethod("POST");
+
+                    String urlParams = "operation=push&data="+ URLEncoder.encode(pendingData,"UTF-8");
+                    connection.setDoOutput(true);
+                    DataOutputStream d = new DataOutputStream(connection.getOutputStream());
+                    d.writeBytes(urlParams);
+                    d.flush();
+                    d.close();
+
                     //write the data
-                    serverOutput.write(pendingData);
+                    //serverOutput.write(pendingData);
                     // IMPORTANT: write a new line, necessary to actually send the data
-                    serverOutput.newLine();
+                    //serverOutput.newLine();
                     //send the data
-                    serverOutput.flush();
+                    //serverOutput.flush();
                     //clear the queue
                     pendingData = "";
                 }
