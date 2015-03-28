@@ -17,10 +17,8 @@ public class OutboundDomain {
 
     /**
      * This file splits logging data between logcat, the logger, and outbound to all connected webclients.
-     *
+     * <p/>
      * Some decisions need to be made about verbosity at each end
-     *
-     *
      */
 
     Logger logger;

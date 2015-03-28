@@ -7,12 +7,12 @@
 package edu.msoe.smv.raspirelay;
 
 import android.os.AsyncTask;
+import android.util.Log;
 
-import javax.net.ssl.HttpsURLConnection;
-import java.io.BufferedWriter;
+import java.io.BufferedReader;
 import java.io.DataOutputStream;
+import java.io.InputStreamReader;
 import java.io.OutputStream;
-import java.io.OutputStreamWriter;
 import java.net.*;
 
 /**
@@ -131,17 +131,34 @@ public class WebClientConnectionAgent extends AsyncTask<Void, Void, Void> {
             while (isRunning) {
                 //if queue isn't empty
                 if (!pendingData.equals("")) {
+                    //create the connection
                     URL url = new URL("http://msoesmv.hostei.com/webRelay.php");
+                    //open the connection
                     HttpURLConnection connection = (HttpURLConnection) url.openConnection();
                     connection.setRequestMethod("POST");
 
-                    String urlParams = "operation=push&data="+ URLEncoder.encode(pendingData,"UTF-8");
+                    //set parameters, format: "operation=push&data=ANY DATA YOU WANT TO SEND"
+                    String urlParams = "operation=push&data=" + URLEncoder.encode(pendingData, "UTF-8");
                     connection.setDoOutput(true);
+                    //create the writer
                     DataOutputStream d = new DataOutputStream(connection.getOutputStream());
+                    //send the parameters
                     d.writeBytes(urlParams);
                     d.flush();
                     d.close();
+                    //read the response
+                    BufferedReader reader= new BufferedReader(new InputStreamReader(connection.getInputStream()));
+                    String data;
+                    //for each line while the line isn't "****"
+                    while((data= reader.readLine())!=null&&!data.equals("****")) {//data contains the response line
+                        //do work
+                        Log.d("data","received-data: " + data);
+                        if (data.contains("Exception") || data.contains("null"))
+                            isRunning = false;
+                    }
+                    reader.close();
 
+                    Thread.sleep(250);
                     //write the data
                     //serverOutput.write(pendingData);
                     // IMPORTANT: write a new line, necessary to actually send the data

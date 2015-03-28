@@ -8,12 +8,10 @@ package edu.msoe.smv.raspirelay;
 
 import android.app.Service;
 import android.content.Intent;
-import android.os.*;
+import android.os.Binder;
+import android.os.IBinder;
 import android.util.Log;
 import android.widget.Toast;
-
-import java.util.logging.Handler;
-import java.util.logging.LogRecord;
 
 /**
  * We need to implement a service, because threads & async tasks are not independent of activity.
@@ -25,7 +23,7 @@ public class VehicleConnectionAgent extends Service {
 
     /**
      * This class will handle the vehicle connection.
-     *
+     * <p/>
      * push a connection to the raspberry pi, start a heartbeat, in-stream data and route through
      * the OutboundDomain
      */
@@ -41,7 +39,6 @@ public class VehicleConnectionAgent extends Service {
     }
 
     /**
-     *
      * @param intent
      * @param flags
      * @param startId
@@ -56,7 +53,6 @@ public class VehicleConnectionAgent extends Service {
     }
 
     /**
-     *
      * @param intent
      * @return
      */
@@ -81,7 +77,6 @@ public class VehicleConnectionAgent extends Service {
     public class VehicleConnectionServiceBinder extends Binder {
 
         /**
-         *
          * @return
          */
         public VehicleConnectionAgent getService() {

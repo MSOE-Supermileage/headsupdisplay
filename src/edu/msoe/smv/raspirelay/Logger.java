@@ -22,7 +22,8 @@ public class Logger {
 
     /**
      * specify the log directory, specify whether or not to append if file exists
-     * @param path log directory
+     *
+     * @param path   log directory
      * @param append appends if true
      * @throws FileNotFoundException
      */
@@ -34,6 +35,7 @@ public class Logger {
 
     /**
      * specify the log directory, append to the file if exists by default
+     *
      * @param path log directory
      * @throws FileNotFoundException
      */
@@ -43,6 +45,7 @@ public class Logger {
 
     /**
      * default log directory, specify whether or not to append if file exists
+     *
      * @param append appends if true
      * @throws FileNotFoundException
      */
@@ -52,6 +55,7 @@ public class Logger {
 
     /**
      * default log directory, append to the file if exists by default
+     *
      * @throws FileNotFoundException
      */
     public Logger() throws FileNotFoundException {
@@ -68,6 +72,7 @@ public class Logger {
 
     /**
      * log some data
+     *
      * @param event data to log
      * @throws FileNotFoundException
      */
@@ -77,6 +82,7 @@ public class Logger {
 
     /**
      * log some data if debugging is on
+     *
      * @param event data to log
      * @throws FileNotFoundException
      */
@@ -86,6 +92,7 @@ public class Logger {
 
     /**
      * try to log, return false if can't
+     *
      * @param event data to log
      * @return false if can't log
      */
@@ -96,6 +103,7 @@ public class Logger {
 
     /**
      * try to log if debugging is on, return false if can't
+     *
      * @param event data to log
      * @return false if can't log
      */

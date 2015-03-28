@@ -12,24 +12,28 @@ package edu.msoe.smv.raspirelay;
 
 import android.app.Activity;
 import android.content.ComponentName;
-import android.content.Intent;
 import android.content.ServiceConnection;
+import android.content.pm.ActivityInfo;
 import android.net.wifi.WifiManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.os.SystemClock;
-import android.text.format.Formatter;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
-import java.io.*;
-import java.net.*;
-import java.util.ArrayList;
-import java.util.Enumeration;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.ServerSocket;
+import java.net.Socket;
+import java.net.SocketException;
+import java.net.URL;
+import java.util.Arrays;
 
 /**
  * the main activity
@@ -98,13 +102,14 @@ public class HeadsUpDisplay extends Activity {
     };
     //just to supply the server with random data
     Thread randomDataThread;
+
     public void changeContinuousRandomDataThread(View v) {
-        CheckBox running=(CheckBox)findViewById(R.id.sendContinuousCB);
-        if(running.isChecked()) {
+        CheckBox running = (CheckBox) findViewById(R.id.sendContinuousCB);
+        if (running.isChecked()) {
             randomDataThread = new Thread(new Runnable() {
                 public void run() {
-                    CheckBox running=(CheckBox)findViewById(R.id.sendContinuousCB);
-                    while(running.isChecked()) {
+                    CheckBox running = (CheckBox) findViewById(R.id.sendContinuousCB);
+                    while (running.isChecked()) {
                         sendRandomData();
                         try {
                             Thread.sleep(250);
@@ -118,24 +123,24 @@ public class HeadsUpDisplay extends Activity {
         }
     }
 
-    public String getMyIP(){
+    public String getMyIP() {
         final String[] url = {"http://checkip.amazonaws.com"};
         final String[] result = {""};
         new Thread(new Runnable() {
             @Override
             public void run() {
-                try(BufferedReader reader=new BufferedReader(new InputStreamReader(new URL(url[0]).openStream()));){
+                try (BufferedReader reader = new BufferedReader(new InputStreamReader(new URL(url[0]).openStream()));) {
 
-                    Log.i("Hiya!","///////////////////(" + result[0] + ")////////////////////");
-                    result[0] =reader.readLine();
+                    Log.i("Hiya!", "///////////////////(" + result[0] + ")////////////////////");
+                    result[0] = reader.readLine();
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
                             updateConsole(result[0]);
                         }
                     });
-                    Log.i("Hiya!","///////////////////(" + result[0] + ")////////////////////");
-                }catch(Exception e){
+                    Log.i("Hiya!", "///////////////////(" + result[0] + ")////////////////////");
+                } catch (Exception e) {
                     e.printStackTrace();
                     updateConsole(e.toString());
                 }
@@ -144,9 +149,11 @@ public class HeadsUpDisplay extends Activity {
 
         return result[0];
     }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         setContentView(R.layout.headsupdisplay);
 
         startTime = SystemClock.currentThreadTimeMillis();
@@ -157,7 +164,7 @@ public class HeadsUpDisplay extends Activity {
         // get public IP from Wifi Manager
         WifiManager wm = (WifiManager) getSystemService(WIFI_SERVICE);
         //String ip = Formatter.formatIpAddress(wm.getConnectionInfo().getIpAddress());
-        String ip=getMyIP();
+        String ip = getMyIP();
         /*try {
             for (Enumeration<NetworkInterface> en = NetworkInterface.getNetworkInterfaces(); en.hasMoreElements(); ) {
                 NetworkInterface intf = en.nextElement();
@@ -180,7 +187,6 @@ public class HeadsUpDisplay extends Activity {
         // TODO
 
 
-
         new Thread(new Runnable() {
             public void run() {
 //                startService(new Intent(getBaseContext(), VehicleConnectionAgent.class));
@@ -196,12 +202,9 @@ public class HeadsUpDisplay extends Activity {
         }).start();
 
 
-
         // TODO - what if we used sqlite to store relational data?
 
     }
-
-
 
 
     public void sendData_onClick(View v) {
@@ -357,7 +360,12 @@ public class HeadsUpDisplay extends Activity {
             System.out.println(console);
             console.append(e.toString());
         }
-        final ScrollView s=(ScrollView)findViewById(R.id.scrollView);
+        String temp = console.getText().toString();
+        while (temp.length() > 5000) {
+            temp=temp.substring(temp.length()-5000,temp.length());
+            //temp = TextUtils.join("\n", Arrays.copyOfRange(temp.split("\n"), 1, temp.split("\n").length));
+        }
+        final ScrollView s = (ScrollView) findViewById(R.id.scrollView);
         s.post(new Runnable() {
             @Override
             public void run() {
