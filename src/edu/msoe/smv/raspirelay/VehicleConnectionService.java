@@ -25,9 +25,12 @@ import java.net.*;
  * @author austin
  * @version 2014.12.07
  */
-public class VehicleConnectionAgent extends Service {
+public class VehicleConnectionService extends Service {
 
+    // the intent passed toe service on starting
     private Intent startIntent;
+
+    private static InetAddress piInetAddress = null;
 
     /**
      * Message handling service to communicate with clients of this service
@@ -46,40 +49,39 @@ public class VehicleConnectionAgent extends Service {
 
         @Override
         public void run() {
-            Bundle send = new Bundle();
-
             DatagramSocket raspberryPiSocket = null;
             try {
                 raspberryPiSocket = new DatagramSocket();
+                // we need a 10 second timeout
                 raspberryPiSocket.setSoTimeout(10000);
             } catch (SocketException e) {
-                e.printStackTrace();
-                send.putString("message", "failed to connect. restart?");
-                receiver.send(100, send);
+                messageClient("failed to connect. restart?");
+                // TODO handle better
+                return;
             }
-            // we need a 10 second timeout
 
             DatagramPacket receivePacket;
 
             // notify the UI we created the socket and are waiting for a connection
-            send = new Bundle();
-            send.putString("message", "socket waiting @ port 12100");
-            receiver.send(100, send);
+            messageClient("waiting for raspi connection");
 
-            // TODO find the pi???
-            InetAddress piAddress = null;
             try {
-                piAddress = InetAddress.getByName("155.92.65.233");
+                piInetAddress = InetAddress.getByName("155.92.65.233");
             } catch (UnknownHostException e) {
                 e.printStackTrace();
+                messageClient("could not find the pi");
+                // unwise
+                return;
+
             }
+
             while (true) {
 
                 byte[] recBuffer = new byte[512];
 
                 // request data by sending a byte
                 try {
-                    raspberryPiSocket.send(new DatagramPacket(".".getBytes(), ".".getBytes().length, piAddress, 12100));
+                    raspberryPiSocket.send(new DatagramPacket(".".getBytes(), ".".getBytes().length, piInetAddress, 12100));
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -91,9 +93,7 @@ public class VehicleConnectionAgent extends Service {
                     public void run() {
                         try {
                             Thread.sleep(5000);
-                            Bundle send = new Bundle();
-                            send.putString("message", "lost connection, try again in 5 seconds...");
-                            receiver.send(100, send);
+                            messageClient("lost connection, try again in 5 seconds...");
                         } catch (InterruptedException e) {
                             // then we must have received before timeout.
                         }
@@ -108,13 +108,8 @@ public class VehicleConnectionAgent extends Service {
 
                     String data = new String(receivePacket.getData(), 0, receivePacket.getLength());
                     Log.i("PACKET_RECEIVE", data);
-                    // let clients deserialize like this:
-//                        edu.msoe.smv.raspi.DataNode node = gson.fromJson(data, edu.msoe.smv.raspi.DataNode.class);
 
-                    send = new Bundle();
-                    send.putString("node", data);
-
-                    receiver.send(200, send);
+                    sendNodeToClient(data);
 
                     try {
                         Thread.sleep(1000);
@@ -128,52 +123,74 @@ public class VehicleConnectionAgent extends Service {
             }
 
 
-
-                /*
-
-                // create the connection socket at port 1111
-                ServerSocket raspberryPiSocketPlaceholder = new ServerSocket(1111);
-
-                // notify the UI we created the socket and are waiting for a connection
-                send.putString("message", "socket waiting @ port 9999");
-                receiver.send(100, send);
-
-                // block until we connect
-                raspberryPiSocket = raspberryPiSocketPlaceholder.accept();
-                raspberryPiSocket.getOutputStream().write("gimme some fucking data".getBytes());
-
-                // notify the UI we have established the connection
-                send = new Bundle();
-                send.putString("message", raspberryPiSocket.toString());
-                receiver.send(100, send);
-
-                GsonBuilder gsonBuilder = new GsonBuilder();
-                BufferedReader input = new BufferedReader(new InputStreamReader(raspberryPiSocket.getInputStream()));
-                while (true) {
-                    StringBuilder objectBuilder = new StringBuilder("");
-                    String nextLine = input.readLine();
-                    do {
-                        nextLine = input.readLine();
-                        objectBuilder.append(nextLine);
-                    } while (!nextLine.contains("}"));
-
-                    JSONObject object = new JSONObject();
-                    try {
-                        object = new JSONObject(objectBuilder.toString());
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                        break;
-                    }
-
-                    send = new Bundle();
-                    send.putString("message", object.toString());
-                }
-
-                */
-
+//            // create the connection socket at port 1111
+//            ServerSocket raspberryPiSocketPlaceholder = new ServerSocket(1111);
+//
+//            // notify the UI we created the socket and are waiting for a connection
+//            send.putString("message", "socket waiting @ port 9999");
+//            receiver.send(100, send);
+//
+//            // block until we connect
+//            raspberryPiSocket = raspberryPiSocketPlaceholder.accept();
+//            raspberryPiSocket.getOutputStream().write("gimme some fucking data".getBytes());
+//
+//            // notify the UI we have established the connection
+//            send = new Bundle();
+//            send.putString("message", raspberryPiSocket.toString());
+//            receiver.send(100, send);
+//
+//            GsonBuilder gsonBuilder = new GsonBuilder();
+//            BufferedReader input = new BufferedReader(new InputStreamReader(raspberryPiSocket.getInputStream()));
+//            while (true) {
+//                StringBuilder objectBuilder = new StringBuilder("");
+//                String nextLine = input.readLine();
+//                do {
+//                    nextLine = input.readLine();
+//                    objectBuilder.append(nextLine);
+//                } while (!nextLine.contains("}"));
+//
+//                JSONObject object = new JSONObject();
+//                try {
+//                    object = new JSONObject(objectBuilder.toString());
+//                } catch (JSONException e) {
+//                    e.printStackTrace();
+//                    break;
+//                }
+//
+//                send = new Bundle();
+//                send.putString("message", object.toString());
+//            }
 
         }
     };
+
+    /**
+     * send a message to the receiver
+     * @param message the message to send
+     */
+    private void messageClient(String message) {
+        Bundle send = new Bundle();
+        send.putString("message", message);
+        receiver.send(100, send);
+    }
+
+    /**
+     *
+     * @param jsonNode
+     */
+    private void sendNodeToClient(String jsonNode) {
+        Bundle send = new Bundle();
+        send.putString("node", jsonNode);
+        receiver.send(200, send);
+
+        // let clients deserialize like this:
+//        edu.msoe.smv.raspi.DataNode node = gson.fromJson(data, edu.msoe.smv.raspi.DataNode.class);
+    }
+
+    private void processCount(long duration, int count) {
+
+    }
+
 
     /**
      * the binder for binding to the service at application load time
@@ -254,10 +271,10 @@ public class VehicleConnectionAgent extends Service {
         /**
          * @return
          */
-        public VehicleConnectionAgent getService() {
-            Toast.makeText(VehicleConnectionAgent.this, "getService()", Toast.LENGTH_SHORT).show();
+        public VehicleConnectionService getService() {
+            Toast.makeText(VehicleConnectionService.this, "getService()", Toast.LENGTH_SHORT).show();
             Log.i("@getService", "binding...");
-            return VehicleConnectionAgent.this;
+            return VehicleConnectionService.this;
         }
     }
 
