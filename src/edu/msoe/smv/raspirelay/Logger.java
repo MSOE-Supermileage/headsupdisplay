@@ -9,6 +9,8 @@ package edu.msoe.smv.raspirelay;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
+import java.text.DateFormat;
+import java.util.Date;
 
 /**
  * @author austin
@@ -16,9 +18,14 @@ import java.io.PrintWriter;
  */
 public class Logger {
 
+    public static final String DEFAULT_LOG_DIR = "";
 
     // the log directory instance
     private File logFile;
+
+    boolean verbose = false;
+
+    private PrintWriter writer;
 
     /**
      * specify the log directory, specify whether or not to append if file exists
@@ -30,6 +37,7 @@ public class Logger {
         logFile = new File(path);
         if (!append)
             clearLog();
+        writer = new PrintWriter(logFile);
     }
 
     /**
@@ -47,7 +55,7 @@ public class Logger {
      * @throws FileNotFoundException
      */
     public Logger(boolean append) throws FileNotFoundException {
-        this(getDefaultLogDir(), append);
+        this(DEFAULT_LOG_DIR, append);
     }
 
     /**
@@ -55,15 +63,7 @@ public class Logger {
      * @throws FileNotFoundException
      */
     public Logger() throws FileNotFoundException {
-        this(getDefaultLogDir(), true);
-    }
-
-    /**
-     * @return the default log directory (current directory)
-     */
-    private static String getDefaultLogDir() {
-        // TODO
-        return "";
+        this(DEFAULT_LOG_DIR, true);
     }
 
     /**
@@ -72,7 +72,7 @@ public class Logger {
      * @throws FileNotFoundException
      */
     public void logEvent(String event) throws FileNotFoundException {
-        // TODO
+        writer.println(getTimeStamp() + event);
     }
 
     /**
@@ -81,27 +81,9 @@ public class Logger {
      * @throws FileNotFoundException
      */
     public void logDebug(String event) throws FileNotFoundException {
-        // TODO
-    }
-
-    /**
-     * try to log, return false if can't
-     * @param event data to log
-     * @return false if can't log
-     */
-    public boolean tryLogEvent(String event) {
-        // TODO
-        return false;
-    }
-
-    /**
-     * try to log if debugging is on, return false if can't
-     * @param event data to log
-     * @return false if can't log
-     */
-    public boolean tryLogDebug(String event) {
-        // TODO
-        return false;
+        if (verbose) {
+            writer.println(getTimeStamp() + event);
+        }
     }
 
     public void clearLog() {
@@ -111,5 +93,9 @@ public class Logger {
         } catch (FileNotFoundException e) {
             // gulp
         }
+    }
+
+    private String getTimeStamp() {
+        return new Date().toString();
     }
 }

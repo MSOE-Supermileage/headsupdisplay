@@ -3,7 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/AndroidRelay.iml" filepath="$PROJECT_DIR$/AndroidRelay.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../Raspberry Pi/Raspberry Pi.iml" filepath="$PROJECT_DIR$/../Raspberry Pi/Raspberry Pi.iml" />
     </modules>
   </component>
 </project>
-

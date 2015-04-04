@@ -12,20 +12,22 @@ package edu.msoe.smv.raspirelay;
 
 import android.app.Activity;
 import android.content.ComponentName;
+import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
 import android.net.wifi.WifiManager;
-import android.os.AsyncTask;
-import android.os.Bundle;
-import android.os.IBinder;
-import android.os.SystemClock;
+import android.os.*;
 import android.text.format.Formatter;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
+import com.google.gson.Gson;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.SocketException;
@@ -35,6 +37,8 @@ import java.util.ArrayList;
  * the main activity
  */
 public class HeadsUpDisplay extends Activity {
+
+    private final Gson gson = new Gson();
 
     // layout references
     public TextView console;
@@ -49,53 +53,55 @@ public class HeadsUpDisplay extends Activity {
     private long startTime;
 
     // new connection controllers
-    private VehicleConnectionAgent vehicleConnectionAgent = null;
+    private VehicleConnectionAgent vehicleConnectionAgent;
     private boolean vehicleConnectionBound = false;
 
     private WebClientConnectionAgent webClientConnectionAgent = null;
     private boolean clientConnectionHandlerBound = false;
 
     /**
+     * create the service connection when the framework builds this class
      *
+     * Generic service connection
      */
-    private ServiceConnection connection = new ServiceConnection() {
-        /**
-         *
-         * @param name
-         * @param service
-         */
-        @Override
-        public void onServiceConnected(ComponentName name, IBinder service) {
-            // compare classnames so we can reuse this class for both client and vehicle connections
-            if (name.getClass().equals(VehicleConnectionAgent.class)) {
-                // we have a vehicle service connection
-                vehicleConnectionAgent = ((VehicleConnectionAgent.VehicleConnectionServiceBinder) service).getService();
-                vehicleConnectionBound = true;
-            } else if (name.getClass().equals(WebClientConnectionAgent.class)) {
-                // TODO
-                // we have a client service connection agent
-//                webClientConnectionAgent = ((WebClientConnectionAgent.ClientConnectionServiceBinder) service).getBinder();
-//                clientConnectionHandlerBound = true;
-            }
-            // else do nothing
-        }
+    private ServiceConnection connection;
+
+    private ServiceReceiver resultReceiver = new ServiceReceiver(new Handler());
+
+    /**
+     * Handle for services to update the UI (message receiver)
+     */
+    public class ServiceReceiver extends ResultReceiver {
 
         /**
+         * Create a new ResultReceive to receive results.  Your
+         * {@link #onReceiveResult} method will be called from the thread running
+         * <var>handler</var> if given, or from an arbitrary thread if null.
          *
-         * @param name
+         * @param handler null
          */
-        @Override
-        public void onServiceDisconnected(ComponentName name) {
-            if (name.getClass().equals(VehicleConnectionAgent.class)) {
-                vehicleConnectionAgent = null;
-                vehicleConnectionBound = false;
-            } else if (name.getClass().equals(WebClientConnectionAgent.class)) {
-                webClientConnectionAgent = null;
-                clientConnectionHandlerBound = false;
-            }
-            // else do nothing
+        public ServiceReceiver(Handler handler) {
+            super(handler);
         }
-    };
+
+        @Override
+        protected void onReceiveResult(final int resultCode, final Bundle resultData) {
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    if (resultCode == 100) {
+                        Toast.makeText(getApplicationContext(), resultData.getString("message"), Toast.LENGTH_SHORT).show();
+                    } else if (resultCode == 200){
+                        String data = resultData.getString("node");
+                        Log.i("DATA_NODE", data);
+                        edu.msoe.smv.raspi.DataNode node = gson.fromJson(data, edu.msoe.smv.raspi.DataNode.class);
+                        Toast.makeText(getApplicationContext(), Double.toString(node.getRpm()), Toast.LENGTH_SHORT).show();
+                    }
+                }
+            });
+        }
+
+    }
 
 
     @Override
@@ -117,43 +123,19 @@ public class HeadsUpDisplay extends Activity {
         webConnected = (TextView) findViewById(R.id.webConnected);
         piConnected = (TextView) findViewById(R.id.piConnected);
 
-        // TODO
+        Intent serviceBindingIntent = new Intent(getBaseContext(), VehicleConnectionAgent.class);
+        serviceBindingIntent.putExtra("receiver", resultReceiver);
+        startService(serviceBindingIntent);
 
-
-
-
-        new Thread(new Runnable() {
-            public void run() {
-//                startService(new Intent(getBaseContext(), VehicleConnectionAgent.class));
-//
-//                try {
-//                    Thread.sleep(5000);
-//                } catch (InterruptedException e) {
-//                    e.printStackTrace();
-//                }
-//
-//                stopService(new Intent(getBaseContext(), VehicleConnectionAgent.class));
-            }
-        }).start();
-
-
-
-        // TODO - what if we used sqlite to store relational data?
-
+        // bind the service to the activity
+//        bindService(serviceBindingIntent, connection, Context.BIND_AUTO_CREATE);
     }
-
-
-
 
     public void sendData_onClick(View v) {
         sendRandomData();
     }
 
     public void sendRandomData() {
-//        if(myWebListener!=null){
-//            String data=new Data().randomize().toString();
-//            myWebListener.sendData(data);
-//        }
         if (webAgent != null) {
             String data = new Data().randomize().toString();
             webAgent.sendData(data);
