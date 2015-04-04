@@ -5,11 +5,7 @@ import android.animation.TypeEvaluator;
 import android.animation.ValueAnimator;
 import android.annotation.TargetApi;
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.Paint;
-import android.graphics.RectF;
+import android.graphics.*;
 import android.os.Build;
 import android.view.View;
 
@@ -18,10 +14,11 @@ import java.util.List;
 
 /**
  * Speedometer with needle.
- *
+ * <p/>
  * Created by danon on 26.02.14.
- * @version 1.0
+ *
  * @author Anton Danshin <a href="mailto:anton.danshin@frtk.ru">anton.danshin@frtk.ru</a>
+ * @version 1.0
  */
 public class GaugeView extends View {
 
@@ -116,7 +113,7 @@ public class GaugeView extends View {
         ValueAnimator va = ValueAnimator.ofObject(new TypeEvaluator<Double>() {
             @Override
             public Double evaluate(float fraction, Double startValue, Double endValue) {
-                return startValue + fraction*(endValue-startValue);
+                return startValue + fraction * (endValue - startValue);
             }
         }, Double.valueOf(getSpeed()), Double.valueOf(progress));
 
@@ -184,10 +181,10 @@ public class GaugeView extends View {
     public void addColoredRange(double begin, double end, int color) {
         if (begin >= end)
             throw new IllegalArgumentException("Incorrect number range specified!");
-        if (begin < - 5.0/160* maxSpeed)
-            begin = - 5.0/160* maxSpeed;
-        if (end > maxSpeed * (5.0/160 + 1))
-            end = maxSpeed * (5.0/160 + 1);
+        if (begin < -5.0 / 160 * maxSpeed)
+            begin = -5.0 / 160 * maxSpeed;
+        if (end > maxSpeed * (5.0 / 160 + 1))
+            end = maxSpeed * (5.0 / 160 + 1);
         ranges.add(new ColoredRange(color, begin, end));
         invalidate();
     }
@@ -249,11 +246,11 @@ public class GaugeView extends View {
 
         if (height >= 0 && width >= 0) {
             width = Math.min(height, width);
-            height = width/2;
+            height = width / 2;
         } else if (width >= 0) {
-            height = width/2;
+            height = width / 2;
         } else if (height >= 0) {
-            width = height*2;
+            width = height * 2;
         } else {
             width = 0;
             height = 0;
@@ -265,13 +262,13 @@ public class GaugeView extends View {
 
     private void drawNeedle(Canvas canvas) {
         RectF oval = getOval(canvas, 1);
-        float radius = oval.width()*0.35f + 10;
+        float radius = oval.width() * 0.35f + 10;
         RectF smallOval = getOval(canvas, 0.2f);
 
-        float angle = 10 + (float) (getSpeed()/ getMaxSpeed()*160);
+        float angle = 10 + (float) (getSpeed() / getMaxSpeed() * 160);
         canvas.drawLine(
-                (float) (oval.centerX() + Math.cos((180 - angle) / 180 * Math.PI) * smallOval.width()*0.5f),
-                (float) (oval.centerY() - Math.sin(angle / 180 * Math.PI) * smallOval.width()*0.5f),
+                (float) (oval.centerX() + Math.cos((180 - angle) / 180 * Math.PI) * smallOval.width() * 0.5f),
+                (float) (oval.centerY() - Math.sin(angle / 180 * Math.PI) * smallOval.width() * 0.5f),
                 (float) (oval.centerX() + Math.cos((180 - angle) / 180 * Math.PI) * (radius)),
                 (float) (oval.centerY() - Math.sin(angle / 180 * Math.PI) * (radius)),
                 needlePaint
@@ -283,30 +280,30 @@ public class GaugeView extends View {
 
     private void drawTicks(Canvas canvas) {
         float availableAngle = 160;
-        float majorStep = (float) (majorTickStep/ maxSpeed *availableAngle);
+        float majorStep = (float) (majorTickStep / maxSpeed * availableAngle);
         float minorStep = majorStep / (1 + minorTicks);
 
         float majorTicksLength = 30;
-        float minorTicksLength = majorTicksLength/2;
+        float minorTicksLength = majorTicksLength / 2;
 
         RectF oval = getOval(canvas, 1);
-        float radius = oval.width()*0.35f;
+        float radius = oval.width() * 0.35f;
 
         float currentAngle = 10;
         double curProgress = 0;
         while (currentAngle <= 170) {
 
             canvas.drawLine(
-                    (float) (oval.centerX() + Math.cos((180-currentAngle)/180*Math.PI)*(radius-majorTicksLength/2)),
-                    (float) (oval.centerY() - Math.sin(currentAngle/180*Math.PI)*(radius-majorTicksLength/2)),
-                    (float) (oval.centerX() + Math.cos((180-currentAngle)/180*Math.PI)*(radius+majorTicksLength/2)),
-                    (float) (oval.centerY() - Math.sin(currentAngle/180*Math.PI)*(radius+majorTicksLength/2)),
+                    (float) (oval.centerX() + Math.cos((180 - currentAngle) / 180 * Math.PI) * (radius - majorTicksLength / 2)),
+                    (float) (oval.centerY() - Math.sin(currentAngle / 180 * Math.PI) * (radius - majorTicksLength / 2)),
+                    (float) (oval.centerX() + Math.cos((180 - currentAngle) / 180 * Math.PI) * (radius + majorTicksLength / 2)),
+                    (float) (oval.centerY() - Math.sin(currentAngle / 180 * Math.PI) * (radius + majorTicksLength / 2)),
                     ticksPaint
             );
 
-            for (int i=1; i<=minorTicks; i++) {
-                float angle = currentAngle + i*minorStep;
-                if (angle >= 170 + minorStep/2) {
+            for (int i = 1; i <= minorTicks; i++) {
+                float angle = currentAngle + i * minorStep;
+                if (angle >= 170 + minorStep / 2) {
                     break;
                 }
                 canvas.drawLine(
@@ -322,7 +319,7 @@ public class GaugeView extends View {
 
                 canvas.save();
                 canvas.rotate(180 + currentAngle, oval.centerX(), oval.centerY());
-                float txtX = oval.centerX() + radius + majorTicksLength/2 + 8;
+                float txtX = oval.centerX() + radius + majorTicksLength / 2 + 8;
                 float txtY = oval.centerY();
                 canvas.rotate(+90, txtX, txtY);
                 canvas.drawText(labelConverter.getLabelFor(curProgress, maxSpeed), txtX, txtY, txtPaint);
@@ -337,9 +334,9 @@ public class GaugeView extends View {
         colorLinePaint.setColor(defaultColor);
         canvas.drawArc(smallOval, 185, 170, false, colorLinePaint);
 
-        for (ColoredRange range: ranges) {
+        for (ColoredRange range : ranges) {
             colorLinePaint.setColor(range.getColor());
-            canvas.drawArc(smallOval, (float) (190 + range.getBegin()/ maxSpeed *160), (float) ((range.getEnd() - range.getBegin())/ maxSpeed *160), false, colorLinePaint);
+            canvas.drawArc(smallOval, (float) (190 + range.getBegin() / maxSpeed * 160), (float) ((range.getEnd() - range.getBegin()) / maxSpeed * 160), false, colorLinePaint);
         }
     }
 
@@ -348,13 +345,13 @@ public class GaugeView extends View {
         final int canvasWidth = canvas.getWidth() - getPaddingLeft() - getPaddingRight();
         final int canvasHeight = canvas.getHeight() - getPaddingTop() - getPaddingBottom();
 
-        if (canvasHeight*2 >= canvasWidth) {
-            oval = new RectF(0, 0, canvasWidth*factor, canvasWidth*factor);
+        if (canvasHeight * 2 >= canvasWidth) {
+            oval = new RectF(0, 0, canvasWidth * factor, canvasWidth * factor);
         } else {
-            oval = new RectF(0, 0, canvasHeight*2*factor, canvasHeight*2*factor);
+            oval = new RectF(0, 0, canvasHeight * 2 * factor, canvasHeight * 2 * factor);
         }
 
-        oval.offset((canvasWidth-oval.width())/2 + getPaddingLeft(), (canvasHeight*2-oval.height())/2 + getPaddingTop());
+        oval.offset((canvasWidth - oval.width()) / 2 + getPaddingLeft(), (canvasHeight * 2 - oval.height()) / 2 + getPaddingTop());
 
         return oval;
     }
@@ -366,8 +363,8 @@ public class GaugeView extends View {
         RectF innerOval = getOval(canvas, 0.9f);
         canvas.drawArc(innerOval, 180, 180, true, backgroundInnerPaint);
 
-        Bitmap mask = Bitmap.createScaledBitmap(mMask, (int)(oval.width()*1.1), (int)(oval.height()*1.1)/2, true);
-        canvas.drawBitmap(mask, oval.centerX() - oval.width()*1.1f/2, oval.centerY()-oval.width()*1.1f/2, maskPaint);
+        Bitmap mask = Bitmap.createScaledBitmap(mMask, (int) (oval.width() * 1.1), (int) (oval.height() * 1.1) / 2, true);
+        canvas.drawBitmap(mask, oval.centerX() - oval.width() * 1.1f / 2, oval.centerY() - oval.width() * 1.1f / 2, maskPaint);
     }
 
     @SuppressWarnings("NewApi")
@@ -391,7 +388,7 @@ public class GaugeView extends View {
 
         // TODO uncommend and find spot_mask
 //        mMask = BitmapFactory.decodeResource(getResources(), R.drawable.spot_mask);
-        mMask = Bitmap.createBitmap(mMask, 0, 0, mMask.getWidth(), mMask.getHeight()/2);
+        mMask = Bitmap.createBitmap(mMask, 0, 0, mMask.getWidth(), mMask.getHeight() / 2);
 
         maskPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
         maskPaint.setDither(true);
