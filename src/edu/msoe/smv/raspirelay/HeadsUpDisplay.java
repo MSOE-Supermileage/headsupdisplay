@@ -34,7 +34,7 @@ public class HeadsUpDisplay extends Activity {
     private final Gson gson = new Gson();
 
     // layout references
-    public TextView console;
+    private TextView console;
 
     /**
      * create the service connection when the framework builds this class
@@ -67,11 +67,12 @@ public class HeadsUpDisplay extends Activity {
                 @Override
                 public void run() {
                     if (resultCode == 100) {
-                        Toast.makeText(getApplicationContext(), resultData.getString("message"), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), resultData.getString("message"
+                        ), Toast.LENGTH_SHORT).show();
                     } else if (resultCode == 200){
                         String data = resultData.getString("node");
                         Log.i("DATA_NODE", data);
-                        edu.msoe.smv.raspi.DataNode node = gson.fromJson(data, edu.msoe.smv.raspi.DataNode.class);
+                        DataNode node = gson.fromJson(data, DataNode.class);
                         Toast.makeText(getApplicationContext(), Double.toString(node.getRpm()), Toast.LENGTH_SHORT).show();
                     } else if (resultCode == 300) {
                         String data = resultData.getString("count");
@@ -94,6 +95,24 @@ public class HeadsUpDisplay extends Activity {
         String ip = Formatter.formatIpAddress(wm.getConnectionInfo().getIpAddress());
         updateConsole("my ip: " + ip);
 
+        startVehicleConnectionService();
+
+
+        try {
+            BufferedReader br = new BufferedReader(new FileReader("/proc/net/arp"));
+            String line;
+            while((line = br.readLine()) != null) {
+                updateConsole(line);
+                Log.e("arp", line);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    private void startVehicleConnectionService() {
+        Log.d("debug", "starting vehicle service...");
         // Create the vehicle connection service
         Intent serviceBindingIntent = new Intent(getBaseContext(), VehicleConnectionService.class);
         serviceBindingIntent.putExtra("receiver", resultReceiver);
@@ -105,17 +124,7 @@ public class HeadsUpDisplay extends Activity {
          */
 //        bindService(serviceBindingIntent, connection, Context.BIND_AUTO_CREATE);
 
-
-        try {
-            BufferedReader br = new BufferedReader(new FileReader("/proc/net/arp"));
-            String line;
-            while((line = br.readLine()) != null) {
-                updateConsole(line);
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
+        Log.d("debug", "service started");
     }
 
     /**
@@ -123,6 +132,8 @@ public class HeadsUpDisplay extends Activity {
      */
     @Override
     public void onDestroy() {
+        Intent stopIntent = new Intent(getBaseContext(), VehicleConnectionService.class);
+        stopService(stopIntent);
         super.onDestroy();
     }
 

@@ -32,6 +32,8 @@ public class VehicleConnectionService extends Service {
 
     private static InetAddress piInetAddress = null;
 
+    private boolean requestData = true;
+
     /**
      * Message handling service to communicate with clients of this service
      */
@@ -55,37 +57,40 @@ public class VehicleConnectionService extends Service {
                 // we need a 10 second timeout
                 raspberryPiSocket.setSoTimeout(10000);
             } catch (SocketException e) {
-                messageClient("failed to connect. restart?");
+                messageClient("could not create socket. restart the app");
                 // TODO handle better
+                if (raspberryPiSocket != null) {
+                    raspberryPiSocket.close();
+                }
                 return;
             }
 
-            DatagramPacket receivePacket;
 
             // notify the UI we created the socket and are waiting for a connection
             messageClient("waiting for raspi connection");
 
             try {
-                piInetAddress = InetAddress.getByName("155.92.65.233");
+                piInetAddress = InetAddress.getByName("192.168.42.42");
             } catch (UnknownHostException e) {
                 e.printStackTrace();
-                messageClient("could not find the pi");
-                // unwise
+                messageClient("could not create the inetaddress. restart the app");
+                // TODO handle better
                 return;
-
             }
 
-            while (true) {
-
+            while (requestData) {
+                messageClient("requesting data...");
                 byte[] recBuffer = new byte[512];
 
                 // request data by sending a byte
                 try {
                     raspberryPiSocket.send(new DatagramPacket(".".getBytes(), ".".getBytes().length, piInetAddress, 12100));
                 } catch (IOException e) {
+                    messageClient("failed to request data");
                     e.printStackTrace();
                 }
 
+                DatagramPacket receivePacket;
                 receivePacket = new DatagramPacket(recBuffer, recBuffer.length);
 
                 Thread socketTimeoutWatcher = new Thread(new Runnable() {
@@ -203,7 +208,6 @@ public class VehicleConnectionService extends Service {
      */
     @Override
     public void onCreate() {
-
         Toast.makeText(getApplicationContext(), "onCreate()", Toast.LENGTH_SHORT).show();
 
         // instantiate the thread that will communicate with the pi in the background
@@ -222,37 +226,29 @@ public class VehicleConnectionService extends Service {
         Toast.makeText(getApplicationContext(), "onStartCommand()", Toast.LENGTH_SHORT).show();
 
         startIntent = intent;
-        receiver = startIntent.getParcelableExtra("receiver");
-        Toast.makeText(getApplicationContext(), receiver.toString(), Toast.LENGTH_SHORT).show();
+        receiver = intent.getParcelableExtra("receiver");
 
-        piBackgroundThread.start();
-
-        Bundle bundle = new Bundle();
-        bundle.putString("message", "I'm a fucking message");
-        receiver.send(100, bundle);
+        // need this check in the event the service is already started.
+        if (!piBackgroundThread.isAlive()) {
+            piBackgroundThread.start();
+        }
 
         return START_REDELIVER_INTENT;
     }
 
 
     /**
-     * not needed
+     * I don't get called
      * @param intent
      * @return
      */
     @Override
     public IBinder onBind(Intent intent) {
-        Toast.makeText(getApplicationContext(), "onBind()", Toast.LENGTH_SHORT).show();
-
-//        startIntent = intent;
-//        receiver = intent.getParcelableExtra("receiver");
-//
-//        Toast.makeText(getApplicationContext(), receiver.describeContents(), Toast.LENGTH_SHORT).show();
-//
-//        piBackgroundThread.start();
-
+        Toast.makeText(getApplicationContext(), "The vehicle service was bound and Austin is going to be pissed.", Toast.LENGTH_SHORT).show();
+        Log.e("service", "service was attempted to be bound to. ");
         return localBinder;
     }
+
 
     /**
      *
@@ -261,6 +257,14 @@ public class VehicleConnectionService extends Service {
     public void onDestroy() {
         Toast.makeText(this, "onDestroy()", Toast.LENGTH_SHORT).show();
         Log.i("@onDestroy", "service stopped");
+        requestData = false;
+        try {
+            piBackgroundThread.join();
+            Toast.makeText(this, "thread stopped", Toast.LENGTH_SHORT).show();
+        } catch (InterruptedException e) {
+            Thread.interrupted();
+        }
+        super.onDestroy();
     }
 
     /**
