@@ -225,7 +225,9 @@ public class VehicleConnectionService extends Service {
         receiver = startIntent.getParcelableExtra("receiver");
         Toast.makeText(getApplicationContext(), receiver.toString(), Toast.LENGTH_SHORT).show();
 
-        piBackgroundThread.start();
+        if(!piBackgroundThread.isAlive()) {
+            piBackgroundThread.start();
+        }
 
         Bundle bundle = new Bundle();
         bundle.putString("message", "I'm a fucking message");

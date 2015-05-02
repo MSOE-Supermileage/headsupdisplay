@@ -14,22 +14,31 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.ServiceConnection;
 import android.net.wifi.WifiManager;
-import android.os.*;
+import android.os.Bundle;
+import android.os.Handler;
+import android.os.ResultReceiver;
 import android.text.format.Formatter;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
+import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.google.gson.Gson;
 
 import java.io.BufferedReader;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.LinkedList;
 
 /**
  * the main activity
  */
 public class HeadsUpDisplay extends Activity {
+    private Stopwatch lapWatch, totalWatch;
+    public static LinkedList<Long> laptimes=new LinkedList<>();
+    int laps = 0;
 
     private final Gson gson = new Gson();
 
@@ -38,7 +47,7 @@ public class HeadsUpDisplay extends Activity {
 
     /**
      * create the service connection when the framework builds this class
-     *
+     * <p/>
      * Generic service connection
      */
     private ServiceConnection connection;
@@ -68,7 +77,7 @@ public class HeadsUpDisplay extends Activity {
                 public void run() {
                     if (resultCode == 100) {
                         Toast.makeText(getApplicationContext(), resultData.getString("message"), Toast.LENGTH_SHORT).show();
-                    } else if (resultCode == 200){
+                    } else if (resultCode == 200) {
                         String data = resultData.getString("node");
                         Log.i("DATA_NODE", data);
                         edu.msoe.smv.raspi.DataNode node = gson.fromJson(data, edu.msoe.smv.raspi.DataNode.class);
@@ -105,11 +114,23 @@ public class HeadsUpDisplay extends Activity {
          */
 //        bindService(serviceBindingIntent, connection, Context.BIND_AUTO_CREATE);
 
+        lapWatch = new Stopwatch(new Runnable() {
+            @Override
+            public void run() {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        updateGUI();
+                    }
+                });
+            }
+        }, 100);
+        totalWatch = new Stopwatch();
 
         try {
             BufferedReader br = new BufferedReader(new FileReader("/proc/net/arp"));
             String line;
-            while((line = br.readLine()) != null) {
+            while ((line = br.readLine()) != null) {
                 updateConsole(line);
             }
         } catch (IOException e) {
@@ -137,6 +158,65 @@ public class HeadsUpDisplay extends Activity {
         } catch (Exception e) {
             System.out.println(console);
             console.append(e.toString());
+        }
+    }
+
+    public void startClick(View v) {
+        if(!lapWatch.isRunning()) {
+            lapWatch.start();
+            totalWatch.start();
+        }
+    }
+
+    public void stopClick(View v) {
+        lapWatch.stop();
+        totalWatch.stop();
+        updateGUI();
+        laps=0;
+    }
+
+    public void pauseClick(View v) {
+        lapWatch.pause();
+        totalWatch.pause();
+        updateGUI();
+    }
+
+    private void updateGUI() {
+        String lap = Stopwatch.toTimeString(lapWatch.getDuration()), total = Stopwatch.toTimeString(totalWatch.getDuration());
+        ((TextView) findViewById(R.id.currLapTimeLbl)).setText(lap.substring(3, lap.length() - 2));
+        ((TextView) findViewById(R.id.totalTimeLbl)).setText("Total: " + total.substring(0, total.length() - 2));
+        ((TextView) findViewById(R.id.numLapsLbl)).setText("" + laps);
+        ((TextView) findViewById(R.id.mphLbl)).setText(""+ getMPH());
+    }
+
+    private int getMPH() {
+        return 99;
+    }
+
+    public void lapClick(View v) {
+        if(lapWatch.isRunning()) {
+            laptimes.add(lapWatch.lap());
+            laps++;
+            ((TextView) findViewById(R.id.numLapsLbl)).setText("" + laps);
+        }
+    }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu items for use in the action bar
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.settings, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle presses on the action bar items
+        switch (item.getItemId()) {
+            case R.id.action_settings:
+                Intent i=new Intent(this,LapTimesActivity.class);
+                startActivity(i);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
         }
     }
 }

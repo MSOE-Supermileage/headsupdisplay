@@ -2,7 +2,8 @@
 <LinearLayout
         android:orientation="vertical"
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent" xmlns:android="http://schemas.android.com/apk/res/android">
+        android:layout_height="fill_parent" xmlns:android="http://schemas.android.com/apk/res/android"
+        android:weightSum="1">
     <!--<Button-->
             <!--android:layout_width="wrap_content"-->
             <!--android:layout_height="wrap_content"-->
@@ -60,10 +61,88 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:id="@+id/scrollView"
-            android:layout_gravity="center_horizontal">
+            android:layout_gravity="center_horizontal" android:fillViewport="false" android:visibility="gone">
         <TextView xmlns:android="http://schemas.android.com/apk/res/android"
                   android:id="@+id/console"
                   android:layout_width="wrap_content"
                   android:layout_height="wrap_content"/>
     </ScrollView>
+    <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" android:background="#444444">
+        <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent" android:weightSum="1">
+            <TextView
+                    android:layout_width="95dp"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:text="0"
+                    android:id="@+id/numLapsLbl" android:textSize="50dp" android:gravity="center_horizontal"
+                    android:background="@color/green"/>
+            <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:text="00:00.0"
+                    android:id="@+id/currLapTimeLbl" android:textSize="50dp" android:textAlignment="gravity"
+                    android:gravity="right" android:background="@color/blue"/>
+        </LinearLayout>
+        <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="Total: 00:00.0"
+                android:id="@+id/totalTimeLbl" android:textSize="40dp" android:gravity="center"/>
+    </LinearLayout>
+    <FrameLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content">
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="99"
+                android:id="@+id/mphLbl" android:textSize="150dp" android:layout_gravity="center_horizontal"
+                android:layout_marginRight="@dimen/lapbtn"/>
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="mph"
+                android:id="@+id/smallMphLbl" android:textSize="50dp" android:layout_gravity="bottom|right"
+                android:layout_marginRight="@dimen/lapbtn"/>
+    </FrameLayout>
+    <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent" android:layout_gravity="center_horizontal|top">
+        <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content" android:layout_gravity="center_horizontal|top"
+                android:layout_weight=".5">
+            <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="fill_parent"
+                    android:text="▶"
+                    android:id="@+id/startTimerBtn" android:layout_weight=".3"
+                    android:onClick="startClick" android:background="@color/green"/>
+            <Button android:layout_width="wrap_content" android:layout_height="fill_parent"
+                    android:id="@+id/pauseTimerBtn" android:layout_weight=".3" android:text="❚❚"
+                    android:onClick="pauseClick" android:background="@color/yellow"/>
+            <Button android:layout_width="wrap_content" android:layout_height="fill_parent" android:text="■"
+                    android:id="@+id/button3" android:layout_weight=".3"
+                    android:onClick="stopClick" android:background="@color/red"/>
+        </LinearLayout>
+        <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Lap"
+                android:id="@+id/lapBtn" android:background="#FF0000"
+                android:layout_gravity="bottom" android:textSize="50dp" android:padding="@dimen/lapbtn"
+                android:onClick="lapClick"/>
+    </LinearLayout>
 </LinearLayout>

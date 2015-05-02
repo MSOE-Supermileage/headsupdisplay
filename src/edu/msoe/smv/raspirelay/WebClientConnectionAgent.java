@@ -82,12 +82,12 @@ public class WebClientConnectionAgent extends AsyncTask<Void, Void, Void> {
      */
     private void updateConnected(final boolean val) {
         //cannot access UI stuff on a non-UI thread
-        display.runOnUiThread(new Runnable() {
+        /*display.runOnUiThread(new Runnable() {
             @Override
             public void run() {
                 display.setWebConnected(val);
             }
-        });
+        });*/
     }
 
     /**
