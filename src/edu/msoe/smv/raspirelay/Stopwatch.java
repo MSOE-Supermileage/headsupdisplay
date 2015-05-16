@@ -48,7 +48,7 @@ public class Stopwatch {
     }
 
     public long getDuration() {
-        return isRunning?duration+getCurrentTime():duration;
+        return isRunning ? duration + getCurrentTime() : duration;
     }
 
     public void stop() {

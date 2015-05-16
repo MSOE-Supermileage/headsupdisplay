@@ -1,67 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
         android:orientation="vertical"
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent" xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_height="fill_parent"
         android:weightSum="1">
-    <!--<Button-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:text="Send Message"-->
-            <!--android:id="@+id/button" android:onClick="sendData_onClick"/>-->
-    <!--<CheckBox-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:text="Continuous Random Data"-->
-            <!--android:id="@+id/sendContinuousCB" android:checked="false"-->
-            <!--android:onClick="changeContinuousRandomDataThread"/>-->
-    <!--<LinearLayout-->
-            <!--android:orientation="horizontal"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="wrap_content">-->
-        <!--<TextView-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:textAppearance="?android:attr/textAppearanceMedium"-->
-                <!--android:text="Web Listener:"-->
-                <!--android:id="@+id/textView"/>-->
-        <!--<Button-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:text="Start"-->
-                <!--android:id="@+id/startWeb" android:onClick="startWebClick"/>-->
-        <!--<Button android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Stop"-->
-                <!--android:id="@+id/stopWeb" android:onClick="stopWebClick"/>-->
-        <!--<TextView-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:text="Not Connected"-->
-                <!--android:id="@+id/webConnected" android:checked="false"-->
-                <!--android:checkMark="?android:attr/listChoiceIndicatorMultiple"/>-->
-    <!--</LinearLayout>-->
-    <!--<LinearLayout android:orientation="horizontal" android:layout_width="match_parent"-->
-                  <!--android:layout_height="wrap_content" android:id="@+id/linearLayout" android:layout_gravity="right">-->
-        <!--<TextView-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:textAppearance="?android:attr/textAppearanceMedium"-->
-                <!--android:text="Pi Listener:"-->
-                <!--android:id="@+id/textView2"/>-->
-        <!--<Button android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Start"-->
-                <!--android:id="@+id/startPi" android:onClick="startPiClick"/>-->
-        <!--<Button android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Stop"-->
-                <!--android:id="@+id/stopPi" android:onClick="stopPiClick"/>-->
-        <!--<TextView android:layout_width="wrap_content" android:layout_height="wrap_content"-->
-                         <!--android:text="Not Connected" android:id="@+id/piConnected" android:checked="false"-->
-                         <!--android:checkMark="?android:attr/listChoiceIndicatorMultiple"/>-->
-    <!--</LinearLayout>-->
-
     <!--log-->
     <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:id="@+id/scrollView"
-            android:layout_gravity="center_horizontal" android:fillViewport="false" android:visibility="gone">
+            android:layout_gravity="center_horizontal"
+            android:fillViewport="false"
+            android:visibility="gone">
         <TextView xmlns:android="http://schemas.android.com/apk/res/android"
                   android:id="@+id/console"
                   android:layout_width="wrap_content"
@@ -70,79 +21,104 @@
     <LinearLayout
             android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" android:background="#444444">
+            android:layout_height="0dp"
+            android:layout_weight=".25"
+            android:background="#444444">
         <LinearLayout
                 android:orientation="horizontal"
                 android:layout_width="fill_parent"
-                android:layout_height="fill_parent" android:weightSum="1">
+                android:layout_height="0dp"
+                android:layout_weight=".5"
+                android:weightSum="1">
             <TextView
-                    android:layout_width="95dp"
-                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:layout_height="fill_parent"
                     android:textAppearance="?android:attr/textAppearanceLarge"
                     android:text="0"
-                    android:id="@+id/numLapsLbl" android:textSize="50dp" android:gravity="center_horizontal"
+                    android:id="@+id/numLapsLbl"
+                    android:textSize="40dp"
+                    android:paddingRight="20dp"
+                    android:paddingLeft="20dp"
+                    android:gravity="center"
                     android:background="@color/green"/>
             <TextView
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="fill_parent"
                     android:textAppearance="?android:attr/textAppearanceLarge"
                     android:text="00:00.0"
-                    android:id="@+id/currLapTimeLbl" android:textSize="50dp" android:textAlignment="gravity"
-                    android:gravity="right" android:background="@color/blue"/>
+                    android:id="@+id/currLapTimeLbl"
+                    android:textSize="40dp"
+                    android:textAlignment="gravity"
+                    android:gravity="center"
+                    android:background="@color/blue"/>
         </LinearLayout>
         <TextView
                 android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="0dp"
+                android:layout_weight=".5"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:text="Total: 00:00.0"
-                android:id="@+id/totalTimeLbl" android:textSize="40dp" android:gravity="center"/>
+                android:id="@+id/totalTimeLbl"
+                android:textSize="40dp"
+                android:gravity="center"/>
     </LinearLayout>
-    <FrameLayout
+    <LinearLayout
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="0dp"
+            android:layout_weight=".5"
+            android:gravity="center"
+            android:orientation="vertical">
         <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceLarge"
-                android:text="99"
-                android:id="@+id/mphLbl" android:textSize="150dp" android:layout_gravity="center_horizontal"
-                android:layout_marginRight="@dimen/lapbtn"/>
-        <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:text="mph"
-                android:id="@+id/smallMphLbl" android:textSize="50dp" android:layout_gravity="bottom|right"
-                android:layout_marginRight="@dimen/lapbtn"/>
-    </FrameLayout>
+                android:text="0.0"
+                android:id="@+id/mphLbl"
+                android:textSize="125dp"
+                android:layout_gravity="center"/>
+    </LinearLayout>
     <LinearLayout
             android:orientation="vertical"
             android:layout_width="fill_parent"
-            android:layout_height="fill_parent" android:layout_gravity="center_horizontal|top">
+            android:layout_height="0dp"
+            android:layout_weight=".25"
+            android:layout_gravity="center_horizontal|bottom">
         <LinearLayout
                 android:orientation="horizontal"
                 android:layout_width="fill_parent"
-                android:layout_height="wrap_content" android:layout_gravity="center_horizontal|top"
-                android:layout_weight=".5">
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal">
             <Button
                     android:layout_width="wrap_content"
-                    android:layout_height="fill_parent"
+                    android:layout_height="wrap_content"
                     android:text="▶"
-                    android:id="@+id/startTimerBtn" android:layout_weight=".3"
-                    android:onClick="startClick" android:background="@color/green"/>
-            <Button android:layout_width="wrap_content" android:layout_height="fill_parent"
-                    android:id="@+id/pauseTimerBtn" android:layout_weight=".3" android:text="❚❚"
-                    android:onClick="pauseClick" android:background="@color/yellow"/>
-            <Button android:layout_width="wrap_content" android:layout_height="fill_parent" android:text="■"
-                    android:id="@+id/button3" android:layout_weight=".3"
-                    android:onClick="stopClick" android:background="@color/red"/>
+                    android:id="@+id/startButton"
+                    android:layout_weight=".5"
+                    android:onClick="startClick"
+                    android:background="@color/green"/>
+            <!--<Button android:layout_width="wrap_content"-->
+                    <!--android:layout_height="fill_parent"-->
+                    <!--android:id="@+id/pauseTimerBtn"-->
+                    <!--android:layout_weight=".3"-->
+                    <!--android:text="❚❚"-->
+                    <!--android:onClick="pauseClick"-->
+                    <!--android:background="@color/yellow"/>-->
+            <Button android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="■"
+                    android:id="@+id/stopButton"
+                    android:layout_weight=".5"
+                    android:onClick="stopClick"
+                    android:background="@color/red"/>
         </LinearLayout>
         <Button
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="fill_parent"
                 android:text="Lap"
-                android:id="@+id/lapBtn" android:background="#FF0000"
-                android:layout_gravity="bottom" android:textSize="50dp" android:padding="@dimen/lapbtn"
+                android:id="@+id/lapBtn"
+                android:background="#f7ff0000"
+                android:layout_gravity="bottom"
+                android:textSize="50dp"
                 android:onClick="lapClick"/>
     </LinearLayout>
 </LinearLayout>
