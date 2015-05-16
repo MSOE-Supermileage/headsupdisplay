@@ -17,6 +17,7 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
+        <activity android:name=".LapTimesActivity" android:label="LapTimesActivity" android:parentActivityName=".HeadsUpDisplay"/>
         <service android:name=".VehicleConnectionService" />
     </application>
 </manifest>

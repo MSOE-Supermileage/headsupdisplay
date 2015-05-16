@@ -70,7 +70,7 @@ public class VehicleConnectionService extends Service {
             messageClient("waiting for raspi connection");
 
             try {
-                piInetAddress = InetAddress.getByName("192.168.42.42");
+                piInetAddress = InetAddress.getByName("155.92.65.233");
             } catch (UnknownHostException e) {
                 e.printStackTrace();
                 messageClient("could not create the inetaddress. restart the app");
@@ -208,6 +208,7 @@ public class VehicleConnectionService extends Service {
      */
     @Override
     public void onCreate() {
+
         Toast.makeText(getApplicationContext(), "onCreate()", Toast.LENGTH_SHORT).show();
 
         // instantiate the thread that will communicate with the pi in the background
