@@ -13,22 +13,15 @@ package edu.msoe.smv.raspirelay;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.ServiceConnection;
-import android.graphics.Color;
-import android.net.wifi.WifiManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.ResultReceiver;
-import android.text.format.Formatter;
 import android.util.Log;
 import android.view.*;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
-import com.google.gson.Gson;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
 import java.text.DecimalFormat;
 import java.util.LinkedList;
 
@@ -141,16 +134,6 @@ public class HeadsUpDisplay extends Activity {
         }, 100);
         totalWatch = new Stopwatch();
 
-        try {
-            BufferedReader br = new BufferedReader(new FileReader("/proc/net/arp"));
-            String line;
-            while ((line = br.readLine()) != null) {
-                updateConsole(line);
-                Log.e("arp", line);
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
 
     }
 
@@ -209,12 +192,6 @@ public class HeadsUpDisplay extends Activity {
         updateGUI();
         laps = 0;
     }
-
-//    public void pauseClick(View v) {
-//        lapWatch.pause();
-//        totalWatch.pause();
-//        updateGUI();
-//    }
 
     private void updateGUI() {
         String lap = Stopwatch.toTimeString(lapWatch.getDuration()), total = Stopwatch.toTimeString(totalWatch.getDuration());

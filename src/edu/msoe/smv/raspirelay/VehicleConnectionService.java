@@ -102,7 +102,7 @@ public class VehicleConnectionService extends Service {
                     @Override
                     public void run() {
                         try {
-                            Thread.sleep(5000);
+                            Thread.sleep(2500);
                             setPIConnectedStatus(false);
                         } catch (InterruptedException e) {
                             // then we must have received before timeout.
@@ -181,7 +181,7 @@ public class VehicleConnectionService extends Service {
     private void messageClient(String message) {
         Bundle send = new Bundle();
         send.putString(MESSAGE, message);
-        receiver.send(100, send);
+        receiver.send(MESSAGE_CODE, send);
     }
 
     /**
@@ -191,7 +191,7 @@ public class VehicleConnectionService extends Service {
     private void sendNodeToClient(String node) {
         Bundle send = new Bundle();
         send.putString(DATA_NODE, node);
-        receiver.send(200, send);
+        receiver.send(DATA_NODE_CODE, send);
     }
 
     /**
@@ -201,7 +201,7 @@ public class VehicleConnectionService extends Service {
     private void setPIConnectedStatus(boolean connected) {
         Bundle send = new Bundle();
         send.putBoolean(PI_CONNECTED, connected);
-        receiver.send(300, send);
+        receiver.send(PI_CONNECTED_CODE, send);
     }
 
     /**
