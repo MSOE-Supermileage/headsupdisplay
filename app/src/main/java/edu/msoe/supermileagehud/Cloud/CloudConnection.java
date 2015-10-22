@@ -26,6 +26,8 @@ public class CloudConnection
 
     public CloudConnection()
     {
+        //Connect to the cloud over Socket.IO
+
         try
         {
             final Socket socket = IO.socket(url);
