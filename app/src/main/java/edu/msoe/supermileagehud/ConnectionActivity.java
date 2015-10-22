@@ -16,7 +16,7 @@ import edu.msoe.supermileagehud.RaspberryPi.ConnectionThread;
 
 public class ConnectionActivity extends AppCompatActivity
 {
-    //The port that is forwarded by ADB, the pi connects to us through this port
+    //The port that is forwarded by ADB, the pi connects to us through this port.
     private static final int PORT = 5001;
 
     private GestureDetector gestureDetector;
