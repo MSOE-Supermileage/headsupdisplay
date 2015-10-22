@@ -14,4 +14,5 @@ The HUD for the SuperMileage car. Displays things such as speed, RPM and Tempera
 2. Select the repo you want to clone, SM-Android
 3. To commit and push, click VCS > Commit Changes, put in a commit message and commit and push!
 
+
 - I don't remember how to configure VCS and GitHub in Android Studio but I am pretty sure it is straight forward!
