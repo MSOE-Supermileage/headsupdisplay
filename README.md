@@ -1,5 +1,5 @@
 # SuperMileage HUD
-The HUD for the SuperMileage car. Displays things such as speed and RPM.
+The HUD for the SuperMileage car. Displays things such as speed, RPM and Temperatures.
 
 ### About
 - This is the android app HUD
