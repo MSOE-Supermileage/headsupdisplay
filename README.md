@@ -16,3 +16,8 @@ The HUD for the SuperMileage car. Displays things such as speed, RPM and Tempera
 
 ### Side note
 - I don't remember how to configure VCS and GitHub in Android Studio but I am pretty sure it is straight forward!
+
+## License
+
+This work is published under the Eclipse Public License 1.0, see LICENSE for
+more details.
