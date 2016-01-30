@@ -2,10 +2,6 @@ package edu.msoe.supermileagehud.RaspberryPi;
 
 import android.widget.TextView;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import edu.msoe.supermileagehud.Calculations.Calculator;
 import edu.msoe.supermileagehud.ConnectionActivity;
 import edu.msoe.supermileagehud.R;
@@ -13,16 +9,14 @@ import edu.msoe.supermileagehud.R;
 /**
  * Created by Connor on 10/16/2015.
  */
-public class UIUpdater
-{
+public class UIUpdater {
     private ConnectionActivity activity;
 
     private TextView mSpeedView;
     private TextView mRpmView;
     private TextView mLatencyView;
 
-    public UIUpdater(ConnectionActivity activity)
-    {
+    public UIUpdater(ConnectionActivity activity) {
         this.activity = activity;
 
         declareElements();
@@ -31,29 +25,23 @@ public class UIUpdater
     /**
      * Declares the elements for the layout
      */
-    private void declareElements()
-    {
+    private void declareElements() {
         mSpeedView = (TextView) activity.findViewById(R.id.speedLabel);
         mRpmView = (TextView) activity.findViewById(R.id.rpmLabel);
         //mLatencyView = (TextView) activity.findViewById(R.id.latency);
     }
 
-    public void updateUI(final Calculator calculator)
-    {
-        mSpeedView.post(new Runnable()
-        {
+    public void updateUI(final Calculator calculator) {
+        mSpeedView.post(new Runnable() {
             @Override
-            public void run()
-            {
+            public void run() {
                 mSpeedView.setText(Math.round(calculator.getSpeed()) + "");
             }
         });
 
-        mRpmView.post(new Runnable()
-        {
+        mRpmView.post(new Runnable() {
             @Override
-            public void run()
-            {
+            public void run() {
                 mRpmView.setText(Math.round(calculator.getRpms()) + "");
             }
         });

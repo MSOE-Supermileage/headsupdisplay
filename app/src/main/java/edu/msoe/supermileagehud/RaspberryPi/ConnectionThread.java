@@ -6,8 +6,7 @@ import java.net.Socket;
 
 import edu.msoe.supermileagehud.ConnectionActivity;
 
-public class ConnectionThread extends Thread
-{
+public class ConnectionThread extends Thread {
     private ConnectionActivity activity;
 
     private ServerSocket serverSocket;
@@ -15,32 +14,25 @@ public class ConnectionThread extends Thread
     /**
      * The thread that waits for the connection from the raspberry pi
      */
-    public ConnectionThread(ConnectionActivity activity, int port)
-    {
+    public ConnectionThread(ConnectionActivity activity, int port) {
         this.activity = activity;
 
-        try
-        {
+        try {
             serverSocket = new ServerSocket(port);
-        } catch (IOException e)
-        {
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
     @Override
-    public void run()
-    {
-        while (true)
-        {
-            try
-            {
+    public void run() {
+        while (true) {
+            try {
                 Socket clientSocket = serverSocket.accept();
 
                 //Start new thread for the communication
                 new CommunicationThread(activity, clientSocket).start();
-            } catch (IOException e)
-            {
+            } catch (IOException e) {
                 e.printStackTrace();
             }
         }

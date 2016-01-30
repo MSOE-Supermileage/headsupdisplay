@@ -15,8 +15,7 @@ import java.util.List;
 /**
  * Created by Connor on 10/19/2015.
  */
-public class VerticalTempSeekBar extends SeekBar
-{
+public class VerticalTempSeekBar extends SeekBar {
     private List<ProgressItem> mProgressItemsList = new ArrayList<>();
 
     private float totalSpan = 100;
@@ -25,29 +24,25 @@ public class VerticalTempSeekBar extends SeekBar
     private float blueSpan = 55;
     private float greenSpan = 35;
 
-    public VerticalTempSeekBar(Context context)
-    {
+    public VerticalTempSeekBar(Context context) {
         super(context);
 
         initData();
     }
 
-    public VerticalTempSeekBar(Context context, AttributeSet attrs, int defStyle)
-    {
+    public VerticalTempSeekBar(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
 
         initData();
     }
 
-    public VerticalTempSeekBar(Context context, AttributeSet attrs)
-    {
+    public VerticalTempSeekBar(Context context, AttributeSet attrs) {
         super(context, attrs);
 
         initData();
     }
 
-    public void initData()
-    {
+    public void initData() {
         ProgressItem mProgressItem;
 
         mProgressItemsList = new ArrayList<>();
@@ -68,24 +63,20 @@ public class VerticalTempSeekBar extends SeekBar
         mProgressItemsList.add(mProgressItem);
     }
 
-    protected void onSizeChanged(int w, int h, int oldw, int oldh)
-    {
+    protected void onSizeChanged(int w, int h, int oldw, int oldh) {
         super.onSizeChanged(h, w, oldh, oldw);
     }
 
     @Override
-    protected synchronized void onMeasure(int widthMeasureSpec, int heightMeasureSpec)
-    {
+    protected synchronized void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         super.onMeasure(heightMeasureSpec, widthMeasureSpec);
 
         setMeasuredDimension(getMeasuredHeight(), getMeasuredWidth());
     }
 
     @Override
-    protected synchronized void onDraw(Canvas canvas)
-    {
-        if (mProgressItemsList.size() > 0)
-        {
+    protected synchronized void onDraw(Canvas canvas) {
+        if (mProgressItemsList.size() > 0) {
             int progressBarWidth = getWidth();
             int progressBarHeight = getHeight();
 
@@ -94,8 +85,7 @@ public class VerticalTempSeekBar extends SeekBar
 
             int progressItemHeight, progressItemBottom;
 
-            for (int i = 0; i < mProgressItemsList.size(); i++)
-            {
+            for (int i = 0; i < mProgressItemsList.size(); i++) {
                 ProgressItem progressItem = mProgressItemsList.get(i);
                 Paint progressPaint = new Paint();
 
@@ -105,8 +95,7 @@ public class VerticalTempSeekBar extends SeekBar
                 progressItemBottom = lastProgressY + progressItemHeight;
 
                 // for last item give right to progress item to the width
-                if (i == mProgressItemsList.size() - 1 && progressItemBottom != progressBarWidth)
-                {
+                if (i == mProgressItemsList.size() - 1 && progressItemBottom != progressBarWidth) {
                     progressItemBottom = progressBarHeight;
                 }
 
@@ -125,8 +114,7 @@ public class VerticalTempSeekBar extends SeekBar
     }
 
     @Override
-    public boolean onTouchEvent(MotionEvent event)
-    {
+    public boolean onTouchEvent(MotionEvent event) {
         return false;
     }
 }
