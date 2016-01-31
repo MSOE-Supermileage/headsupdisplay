@@ -1,4 +1,4 @@
-package edu.msoe.supermileagehud;
+package edu.msoe.hud;
 
 import android.app.Application;
 import android.test.ApplicationTestCase;

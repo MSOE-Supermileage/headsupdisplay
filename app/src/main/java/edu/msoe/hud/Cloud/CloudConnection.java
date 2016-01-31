@@ -1,4 +1,4 @@
-package edu.msoe.supermileagehud.Cloud;
+package edu.msoe.hud.Cloud;
 
 import android.os.AsyncTask;
 

@@ -1,10 +1,10 @@
-package edu.msoe.supermileagehud.RaspberryPi;
+package edu.msoe.hud.RaspberryPi;
 
 import android.widget.TextView;
 
-import edu.msoe.supermileagehud.Calculations.Calculator;
-import edu.msoe.supermileagehud.ConnectionActivity;
-import edu.msoe.supermileagehud.R;
+import edu.msoe.hud.Calculations.Calculator;
+import edu.msoe.hud.ConnectionActivity;
+import edu.msoe.hud.R;
 
 /**
  * Created by Connor on 10/16/2015.

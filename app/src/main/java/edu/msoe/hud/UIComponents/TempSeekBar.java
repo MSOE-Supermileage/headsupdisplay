@@ -1,4 +1,4 @@
-package edu.msoe.supermileagehud.UIComponents;
+package edu.msoe.hud.UIComponents;
 
 import android.content.Context;
 import android.graphics.Canvas;
@@ -15,7 +15,7 @@ import java.util.List;
 /**
  * Created by Connor on 10/19/2015.
  */
-public class VerticalTempSeekBar extends SeekBar {
+public class TempSeekBar extends SeekBar {
     private List<ProgressItem> mProgressItemsList = new ArrayList<>();
 
     private float totalSpan = 100;
@@ -24,20 +24,20 @@ public class VerticalTempSeekBar extends SeekBar {
     private float blueSpan = 55;
     private float greenSpan = 35;
 
-    public VerticalTempSeekBar(Context context) {
+    public TempSeekBar(Context context) {
         super(context);
 
         initData();
     }
 
-    public VerticalTempSeekBar(Context context, AttributeSet attrs, int defStyle) {
-        super(context, attrs, defStyle);
+    public TempSeekBar(Context context, AttributeSet attrs) {
+        super(context, attrs);
 
         initData();
     }
 
-    public VerticalTempSeekBar(Context context, AttributeSet attrs) {
-        super(context, attrs);
+    public TempSeekBar(Context context, AttributeSet attrs, int defStyle) {
+        super(context, attrs, defStyle);
 
         initData();
     }
@@ -46,32 +46,31 @@ public class VerticalTempSeekBar extends SeekBar {
         ProgressItem mProgressItem;
 
         mProgressItemsList = new ArrayList<>();
-        // red span
+        // blue span
         mProgressItem = new ProgressItem();
-        mProgressItem.progressItemPercentage = (redSpan / totalSpan) * 100;
-        mProgressItem.color = Color.parseColor("#F44336");
+        mProgressItem.progressItemPercentage = ((blueSpan / totalSpan) * 100);
+        mProgressItem.color = Color.parseColor("#2196F3");
         mProgressItemsList.add(mProgressItem);
         // green span
         mProgressItem = new ProgressItem();
         mProgressItem.progressItemPercentage = (greenSpan / totalSpan) * 100;
         mProgressItem.color = Color.parseColor("#00E676");
         mProgressItemsList.add(mProgressItem);
-        // blue span
+        // red span
         mProgressItem = new ProgressItem();
-        mProgressItem.progressItemPercentage = ((blueSpan / totalSpan) * 100);
-        mProgressItem.color = Color.parseColor("#2196F3");
+        mProgressItem.progressItemPercentage = (redSpan / totalSpan) * 100;
+        mProgressItem.color = Color.parseColor("#F44336");
         mProgressItemsList.add(mProgressItem);
-    }
-
-    protected void onSizeChanged(int w, int h, int oldw, int oldh) {
-        super.onSizeChanged(h, w, oldh, oldw);
     }
 
     @Override
     protected synchronized void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-        super.onMeasure(heightMeasureSpec, widthMeasureSpec);
+        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+    }
 
-        setMeasuredDimension(getMeasuredHeight(), getMeasuredWidth());
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        return false;
     }
 
     @Override
@@ -81,9 +80,9 @@ public class VerticalTempSeekBar extends SeekBar {
             int progressBarHeight = getHeight();
 
             int thumbOffset = getThumbOffset();
-            int lastProgressY = 0;
+            int lastProgressX = 0;
 
-            int progressItemHeight, progressItemBottom;
+            int progressItemWidth, progressItemRight;
 
             for (int i = 0; i < mProgressItemsList.size(); i++) {
                 ProgressItem progressItem = mProgressItemsList.get(i);
@@ -91,30 +90,22 @@ public class VerticalTempSeekBar extends SeekBar {
 
                 progressPaint.setColor(progressItem.color);
 
-                progressItemHeight = (int) (progressItem.progressItemPercentage * progressBarHeight / 100);
-                progressItemBottom = lastProgressY + progressItemHeight;
+                progressItemWidth = (int) (progressItem.progressItemPercentage * progressBarWidth / 100);
+                progressItemRight = lastProgressX + progressItemWidth;
 
                 // for last item give right to progress item to the width
-                if (i == mProgressItemsList.size() - 1 && progressItemBottom != progressBarWidth) {
-                    progressItemBottom = progressBarHeight;
+                if (i == mProgressItemsList.size() - 1 && progressItemRight != progressBarWidth) {
+                    progressItemRight = progressBarWidth;
                 }
 
                 Rect progressRect = new Rect();
-                progressRect.set(thumbOffset / 2, lastProgressY, progressBarWidth - thumbOffset / 2, progressItemBottom);
+                progressRect.set(lastProgressX, thumbOffset / 2, progressItemRight, progressBarHeight - thumbOffset / 2);
 
                 canvas.drawRect(progressRect, progressPaint);
-                lastProgressY = progressItemBottom;
+                lastProgressX = progressItemRight;
             }
-
-            canvas.rotate(-90);
-            canvas.translate(-getHeight(), 0);
 
             super.onDraw(canvas);
         }
-    }
-
-    @Override
-    public boolean onTouchEvent(MotionEvent event) {
-        return false;
     }
 }

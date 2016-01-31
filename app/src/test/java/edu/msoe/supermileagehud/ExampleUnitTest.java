@@ -1,4 +1,4 @@
-package edu.msoe.supermileagehud;
+package edu.msoe.hud;
 
 import org.junit.Test;
 

@@ -1,4 +1,4 @@
-package edu.msoe.supermileagehud.RaspberryPi;
+package edu.msoe.hud.RaspberryPi;
 
 import android.widget.Toast;
 
@@ -11,9 +11,9 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
 
-import edu.msoe.supermileagehud.Calculations.Calculator;
-import edu.msoe.supermileagehud.Cloud.CloudConnection;
-import edu.msoe.supermileagehud.ConnectionActivity;
+import edu.msoe.hud.Calculations.Calculator;
+import edu.msoe.hud.Cloud.CloudConnection;
+import edu.msoe.hud.ConnectionActivity;
 
 /**
  * Created by Connor on 10/16/2015.

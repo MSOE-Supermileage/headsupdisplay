@@ -1,4 +1,4 @@
-package edu.msoe.supermileagehud.Calculations;
+package edu.msoe.hud.Calculations;
 
 import org.json.JSONException;
 import org.json.JSONObject;

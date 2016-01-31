@@ -38,7 +38,7 @@
                 android:layout_height="match_parent"
                 android:layout_marginTop="5dp">
 
-                <edu.msoe.supermileagehud.UIComponents.VerticalTempSeekBar
+                <edu.msoe.hud.UIComponents.VerticalTempSeekBar
                     android:id="@+id/vertTemp2"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
@@ -252,7 +252,7 @@
                     android:gravity="right"
                     android:textColor="#232323"/>
 
-                <edu.msoe.supermileagehud.UIComponents.VerticalTempSeekBar
+                <edu.msoe.hud.UIComponents.VerticalTempSeekBar
                     android:id="@+id/vertTemp1"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
