@@ -1,4 +1,4 @@
-package edu.msoe.hud.Calculations;
+package edu.msoe.smv.Calculations;
 
 import org.json.JSONException;
 import org.json.JSONObject;

@@ -1,10 +1,10 @@
-package edu.msoe.hud.RaspberryPi;
+package edu.msoe.smv.RaspberryPi;
 
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 
-import edu.msoe.hud.ConnectionActivity;
+import edu.msoe.smv.ConnectionActivity;
 
 public class ConnectionThread extends Thread {
     private ConnectionActivity activity;

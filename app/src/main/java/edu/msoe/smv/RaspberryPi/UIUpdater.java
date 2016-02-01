@@ -1,10 +1,10 @@
-package edu.msoe.hud.RaspberryPi;
+package edu.msoe.smv.RaspberryPi;
 
 import android.widget.TextView;
 
-import edu.msoe.hud.Calculations.Calculator;
-import edu.msoe.hud.ConnectionActivity;
-import edu.msoe.hud.R;
+import edu.msoe.smv.Calculations.Calculator;
+import edu.msoe.smv.ConnectionActivity;
+import edu.msoe.smv.R;
 
 /**
  * Created by Connor on 10/16/2015.

@@ -1,4 +1,4 @@
-package edu.msoe.hud.UIComponents;
+package edu.msoe.smv.view;
 
 import android.content.Context;
 import android.graphics.Canvas;
@@ -11,6 +11,8 @@ import android.widget.SeekBar;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import edu.msoe.smv.model.ProgressItem;
 
 /**
  * Created by Connor on 10/19/2015.

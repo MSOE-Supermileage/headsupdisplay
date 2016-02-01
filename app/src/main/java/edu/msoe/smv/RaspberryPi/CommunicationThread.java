@@ -1,4 +1,4 @@
-package edu.msoe.hud.RaspberryPi;
+package edu.msoe.smv.RaspberryPi;
 
 import android.widget.Toast;
 
@@ -11,9 +11,9 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
 
-import edu.msoe.hud.Calculations.Calculator;
-import edu.msoe.hud.Cloud.CloudConnection;
-import edu.msoe.hud.ConnectionActivity;
+import edu.msoe.smv.Calculations.Calculator;
+import edu.msoe.smv.Cloud.CloudConnection;
+import edu.msoe.smv.ConnectionActivity;
 
 /**
  * Created by Connor on 10/16/2015.

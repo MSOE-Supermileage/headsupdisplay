@@ -1,4 +1,4 @@
-package edu.msoe.hud.UIComponents;
+package edu.msoe.smv.model;
 
 /**
  * Created by Connor on 10/19/2015.
