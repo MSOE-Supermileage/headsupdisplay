@@ -6,14 +6,20 @@ package edu.msoe.smv;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.ResultReceiver;
 import android.util.Log;
+import android.view.View;
+import android.view.View.*;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.getbase.floatingactionbutton.FloatingActionButton;
+import com.getbase.floatingactionbutton.FloatingActionsMenu;
 
 import java.text.DecimalFormat;
 
@@ -21,6 +27,7 @@ import edu.msoe.smv.service.VehicleConnectionService;
 
 /**
  * Example Activity from legacy DAQ to show how to use VehicleConnectionService
+ *
  * @see VehicleConnectionService
  */
 public class HeadsUpDisplay extends Activity {
@@ -32,7 +39,8 @@ public class HeadsUpDisplay extends Activity {
     /**
      * Handle for services to update the UI (message receiver)
      */
-    @SuppressLint("ParcelCreator") // API change in android 6.0 lints public member "CREATOR" - what are you doing google?
+    @SuppressLint("ParcelCreator")
+    // API change in android 6.0 lints public member "CREATOR" - what are you doing google?
     public class ServiceReceiver extends ResultReceiver {
 
         /**
@@ -84,12 +92,32 @@ public class HeadsUpDisplay extends Activity {
         //Remove notification bar
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         // set the layout
-        setContentView(R.layout.headsupdisplay);
+        setContentView(R.layout.activity_layout);
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 
-        mphLabel = (TextView) findViewById(R.id.mphLabel);
+        mphLabel = (TextView) findViewById(R.id.speedLabel);
 
-        Utility.startVehicleConnectionService(getApplicationContext(), resultReceiver);
+        final FloatingActionsMenu fab = (FloatingActionsMenu) findViewById(R.id.fab);
+        FloatingActionButton startbtn = (FloatingActionButton) findViewById(R.id.startFAB);
+        startbtn.setIcon(R.drawable.ic_media_embed_play);
+        startbtn.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Utility.startVehicleConnectionService(getApplicationContext(), resultReceiver);
+                fab.toggle();
+            }
+        });
+
+        FloatingActionButton stopbtn = (FloatingActionButton) findViewById(R.id.stopFAB);
+        stopbtn.setIcon(R.drawable.ic_media_pause);
+        stopbtn.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Utility.stopVehicleConnectionService(getApplicationContext());
+                fab.toggle();
+
+            }
+        });
     }
 
     @Override

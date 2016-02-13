@@ -32,6 +32,7 @@ public class Utility {
         // stop the vehicle connection service
         Intent stopIntent = new Intent(context, VehicleConnectionService.class);
         context.stopService(stopIntent);
+        Log.d("debug", "service stopped");
     }
 
     public static Bundle parseDataNode(JsonReader reader) throws IOException {

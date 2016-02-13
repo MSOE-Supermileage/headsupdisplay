@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:fab="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    tools:context=".Connection">
+
+    <include layout="@layout/data_view_layout" />
+
+    <com.getbase.floatingactionbutton.FloatingActionsMenu
+        android:id="@+id/fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        fab:fab_addButtonColorNormal="@color/blue"
+        fab:fab_addButtonColorPressed="@color/blue_pressed"
+        fab:fab_addButtonPlusIconColor="@color/white"
+        fab:fab_labelsPosition="left"
+        fab:fab_labelStyle="@style/menu_labels_style"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true">
+
+        <com.getbase.floatingactionbutton.FloatingActionButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            fab:fab_colorNormal="@color/green"
+            fab:fab_colorPressed="@color/white_pressed"
+            fab:fab_title="Start Service"
+            android:id="@+id/startFAB"
+            android:background="@android:drawable/ic_media_play" />
+
+        <com.getbase.floatingactionbutton.FloatingActionButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            fab:fab_colorNormal="@color/red"
+            fab:fab_colorPressed="@color/white_pressed"
+            fab:fab_title="Stop Service"
+            android:id="@+id/stopFAB" />
+
+    </com.getbase.floatingactionbutton.FloatingActionsMenu>
+    <!--<android.support.design.widget.FloatingActionButton-->
+    <!--android:id="@+id/fab"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_gravity="bottom|end"-->
+    <!--android:layout_margin="@dimen/fab_margin"-->
+    <!--android:src="@drawable/ic_settings"-->
+    <!--android:tint="#ffffff"/>-->
+
+</RelativeLayout>
+
