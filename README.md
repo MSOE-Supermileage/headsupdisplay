@@ -1,23 +1,12 @@
-# SuperMileage HUD
-The HUD for the SuperMileage car. Displays things such as speed, RPM and Temperatures.
+# Heads Up Display
+Custom Heads Up Display application to view status of vehicle. Also sends collected data to an azure web instance for the Pit Crew to view the status of the vehicle. 
 
-### About
-- This is the android app HUD
-- The Raspberry Pi sends data to the app via TCP over ADB
+Works with both gas and electric vehicles.
 
 ### Requirements
-- Android studio
-- Android API v21 or higher
+- [Android Studio](http://developer.android.com/tools/studio/index.html)
+- [Android SDK v21 and later](http://developer.android.com/about/versions/android-5.0.html)
 
-### Cloning the project
-1. Click File > New > Project from Version Control > GitHub
-2. Select the repo you want to clone, SM-Android
-3. To commit and push, click VCS > Commit Changes, put in a commit message and commit and push!
-
-### Side note
-- I don't remember how to configure VCS and GitHub in Android Studio but I am pretty sure it is straight forward!
-
-## License
-
+### License
 This work is published under the Eclipse Public License 1.0, see LICENSE for
 more details.
