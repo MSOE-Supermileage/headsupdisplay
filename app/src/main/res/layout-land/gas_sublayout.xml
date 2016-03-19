@@ -38,7 +38,7 @@
                 android:layout_height="match_parent"
                 android:layout_marginTop="5dp">
 
-                <edu.msoe.smv.view.VerticalTempSeekBar
+                <edu.msoe.smv.view.VerticalGoldilocksBar
                     android:id="@+id/vertTemp2"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
@@ -61,7 +61,7 @@
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:text="254 °F"
-                    android:id="@+id/textView28"
+                    android:id="@+id/engineTempLabel"
                     android:layout_marginTop="10dp"
                     android:textColor="#232323"
                     android:gravity="left"/>
@@ -165,7 +165,7 @@
                         android:layout_height="match_parent"
                         android:textAppearance="?android:attr/textAppearanceLarge"
                         android:text="00:00.00"
-                        android:id="@+id/textView6"
+                        android:id="@+id/lapTime1"
                         android:layout_weight="1"
                         android:textSize="40sp"
                         android:textIsSelectable="false"
@@ -177,7 +177,7 @@
                         android:layout_height="match_parent"
                         android:textAppearance="?android:attr/textAppearanceLarge"
                         android:text="00:00.00"
-                        android:id="@+id/textView7"
+                        android:id="@+id/lapTime2"
                         android:layout_weight="1"
                         android:gravity="bottom|right"
                         android:paddingRight="10dp"
@@ -231,7 +231,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceMedium"
-                android:text="Other Temp"
+                android:text="Air/Fuel Ratio"
                 android:id="@+id/textView3"
                 android:gravity="right"
                 android:paddingRight="7dp"/>
@@ -246,13 +246,13 @@
                     android:layout_width="52dp"
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:text="94 °F"
-                    android:id="@+id/textView8"
+                    android:text="94 %"
+                    android:id="@+id/oxygenPercLabel"
                     android:layout_marginTop="10dp"
                     android:gravity="right"
                     android:textColor="#232323"/>
 
-                <edu.msoe.smv.view.VerticalTempSeekBar
+                <edu.msoe.smv.view.VerticalGoldilocksBar
                     android:id="@+id/vertTemp1"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"

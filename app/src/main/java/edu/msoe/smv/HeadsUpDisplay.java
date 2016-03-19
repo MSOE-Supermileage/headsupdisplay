@@ -97,9 +97,11 @@ public class HeadsUpDisplay extends Activity {
 
         mphLabel = (TextView) findViewById(R.id.speedLabel);
 
+        initFABMenu();
+    }
+    public void initFABMenu(){
         final FloatingActionsMenu fab = (FloatingActionsMenu) findViewById(R.id.fab);
         FloatingActionButton startbtn = (FloatingActionButton) findViewById(R.id.startFAB);
-        startbtn.setIcon(R.drawable.ic_media_embed_play);
         startbtn.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -109,12 +111,18 @@ public class HeadsUpDisplay extends Activity {
         });
 
         FloatingActionButton stopbtn = (FloatingActionButton) findViewById(R.id.stopFAB);
-        stopbtn.setIcon(R.drawable.ic_media_pause);
         stopbtn.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
                 Utility.stopVehicleConnectionService(getApplicationContext());
                 fab.toggle();
+
+            }
+        });
+        FloatingActionButton startStopwatch = (FloatingActionButton) findViewById(R.id.stopFAB);
+        startStopwatch.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
             }
         });

@@ -7,7 +7,7 @@
     android:fitsSystemWindows="true"
     tools:context=".Connection">
 
-    <include layout="@layout/data_view_layout" />
+    <include layout="@layout/gas_sublayout" />
 
     <com.getbase.floatingactionbutton.FloatingActionsMenu
         android:id="@+id/fab"
@@ -28,7 +28,7 @@
             fab:fab_colorPressed="@color/white_pressed"
             fab:fab_title="Start Service"
             android:id="@+id/startFAB"
-            android:background="@android:drawable/ic_media_play" />
+            fab:fab_icon="@android:drawable/ic_media_play" />
 
         <com.getbase.floatingactionbutton.FloatingActionButton
             android:layout_width="wrap_content"
@@ -36,17 +36,31 @@
             fab:fab_colorNormal="@color/red"
             fab:fab_colorPressed="@color/white_pressed"
             fab:fab_title="Stop Service"
-            android:id="@+id/stopFAB" />
+            android:id="@+id/stopFAB"
+            fab:fab_icon="@android:drawable/ic_media_pause"/>
 
     </com.getbase.floatingactionbutton.FloatingActionsMenu>
+
     <!--<android.support.design.widget.FloatingActionButton-->
-    <!--android:id="@+id/fab"-->
-    <!--android:layout_width="wrap_content"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:layout_gravity="bottom|end"-->
-    <!--android:layout_margin="@dimen/fab_margin"-->
-    <!--android:src="@drawable/ic_settings"-->
-    <!--android:tint="#ffffff"/>-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:id="@+id/startTimerBtn"-->
+        <!--fab:fab_colorNormal="@color/green"-->
+        <!--fab:fab_colorPressed="@color/white_pressed"-->
+        <!--android:layout_alignParentBottom="true"-->
+        <!--android:layout_centerHorizontal="true"-->
+        <!--android:layout_marginBottom="75dp"-->
+        <!--fab:icon="@android:drawable/ic_media_play" />-->
+
+    <com.getbase.floatingactionbutton.FloatingActionButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        fab:fab_colorNormal="@color/green"
+        fab:fab_colorPressed="@color/white_pressed"
+        android:id="@+id/startStopwatch"
+        fab:fab_icon="@android:drawable/ic_media_play"
+        android:layout_alignParentBottom="true"
+        android:layout_alignStart="@+id/fab" />
 
 </RelativeLayout>
 
