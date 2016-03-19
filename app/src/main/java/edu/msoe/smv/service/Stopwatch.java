@@ -47,8 +47,8 @@ public class Stopwatch {
     }
 
     public static String toTimeString(long t) {
-        long ms = (t % 1000), s = (t / 1000) % 60, m = (t / 60000) % 60, h = t / 3600000;
-        return String.format("%02d:%02d:%02d.%03d", h, m, s, ms);
+        long ms = (t % 1000), s = (t / 1000) % 60, m = (t / 60000);
+        return String.format("%02d:%02d.%03d", m, s, ms);
     }
 
     public long getDuration() {

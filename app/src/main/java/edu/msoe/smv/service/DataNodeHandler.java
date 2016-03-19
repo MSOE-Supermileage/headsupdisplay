@@ -15,6 +15,7 @@ import java.net.URISyntaxException;
 import java.util.LinkedList;
 import java.util.List;
 
+import edu.msoe.smv.Managers.ViewManager;
 import edu.msoe.smv.Utility;
 import io.socket.client.IO;
 import io.socket.client.Socket;
@@ -61,6 +62,7 @@ public class DataNodeHandler extends Handler {
         // publish to pit view
         Bundle receive = message.getData();
         JSONObject objectSend = new JSONObject();
+        ViewManager.getInstance().updateData(objectSend);
         for (String key : receive.keySet()) {
             try {
                 objectSend.put(key, receive.getDouble(key));

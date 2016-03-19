@@ -6,13 +6,12 @@ package edu.msoe.smv;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.ResultReceiver;
 import android.util.Log;
 import android.view.View;
-import android.view.View.*;
+import android.view.View.OnClickListener;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.TextView;
@@ -21,9 +20,17 @@ import android.widget.Toast;
 import com.getbase.floatingactionbutton.FloatingActionButton;
 import com.getbase.floatingactionbutton.FloatingActionsMenu;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.text.DecimalFormat;
 
+import edu.msoe.smv.Managers.ViewManager;
 import edu.msoe.smv.service.VehicleConnectionService;
+import edu.msoe.smv.view.GoldilocksBar;
 
 /**
  * Example Activity from legacy DAQ to show how to use VehicleConnectionService
@@ -97,9 +104,39 @@ public class HeadsUpDisplay extends Activity {
 
         mphLabel = (TextView) findViewById(R.id.speedLabel);
 
+        TextView rpmLabel = (TextView) findViewById(R.id.rpmLabel);
+        TextView oxylabel = (TextView) findViewById(R.id.oxygenPercLabel);
+        TextView templabel = (TextView) findViewById(R.id.engineTempLabel);
+        TextView laptime = (TextView) findViewById(R.id.lapTime1);
+        TextView tottime = (TextView) findViewById(R.id.lapTime2);
+        GoldilocksBar enginetemp = (GoldilocksBar) findViewById(R.id.temp1);
+        GoldilocksBar oxy = (GoldilocksBar) findViewById(R.id.temp2);
+        ViewManager v=ViewManager.getInstance().setMphLabel(mphLabel).setRpmLabel(rpmLabel)
+                .setEngineTempBar(enginetemp).setOxygenBar(oxy).setOxyLabel(oxylabel)
+                .setEngineTempLabel(templabel).setLapTimeLabel(laptime).setTotalTimeLabel(tottime);
+        v.setContext(this);
+
+        String text = "";
+        try {
+            BufferedReader br = new BufferedReader(new InputStreamReader(getAssets().open("test.txt")));
+            String line;
+            while ((line = br.readLine()) != null) {
+                text += line + '\n';
+            }
+            br.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        try {
+            v.updateData(new JSONObject(text));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
         initFABMenu();
     }
-    public void initFABMenu(){
+
+    public void initFABMenu() {
         final FloatingActionsMenu fab = (FloatingActionsMenu) findViewById(R.id.fab);
         FloatingActionButton startbtn = (FloatingActionButton) findViewById(R.id.startFAB);
         startbtn.setOnClickListener(new OnClickListener() {
@@ -119,11 +156,25 @@ public class HeadsUpDisplay extends Activity {
 
             }
         });
-        FloatingActionButton startStopwatch = (FloatingActionButton) findViewById(R.id.stopFAB);
+        FloatingActionButton startStopwatch = (FloatingActionButton) findViewById(R.id.startStopwatch);
         startStopwatch.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                ViewManager.getInstance().startTimer();
+            }
+        });
+        FloatingActionButton pauseStopwatch = (FloatingActionButton) findViewById(R.id.pauseStopwatch);
+        pauseStopwatch.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ViewManager.getInstance().pauseTimer();
+            }
+        });
+        FloatingActionButton lapStopwatch = (FloatingActionButton) findViewById(R.id.lapStopwatch);
+        lapStopwatch.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ViewManager.getInstance().doLapTimer();
             }
         });
     }

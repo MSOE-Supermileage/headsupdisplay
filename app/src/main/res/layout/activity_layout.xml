@@ -61,6 +61,24 @@
         fab:fab_icon="@android:drawable/ic_media_play"
         android:layout_alignParentBottom="true"
         android:layout_alignStart="@+id/fab" />
+    <com.getbase.floatingactionbutton.FloatingActionButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        fab:fab_colorNormal="@color/yellow"
+        fab:fab_colorPressed="@color/white_pressed"
+        android:id="@+id/pauseStopwatch"
+        fab:fab_icon="@android:drawable/ic_media_pause"
+        android:layout_alignParentBottom="true"
+        android:layout_toStartOf="@+id/fab" />
+    <com.getbase.floatingactionbutton.FloatingActionButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        fab:fab_colorNormal="@color/black_semi_transparent"
+        fab:fab_colorPressed="@color/white_pressed"
+        android:id="@+id/lapStopwatch"
+        fab:fab_icon="@android:drawable/ic_menu_compass"
+        android:layout_alignParentBottom="true"
+        android:layout_toStartOf="@+id/pauseStopwatch" />
 
 </RelativeLayout>
 
