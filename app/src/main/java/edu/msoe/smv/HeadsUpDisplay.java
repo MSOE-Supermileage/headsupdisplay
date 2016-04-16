@@ -28,8 +28,9 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.text.DecimalFormat;
 
-import edu.msoe.smv.Managers.ViewManager;
+import edu.msoe.smv.managers.ViewManager;
 import edu.msoe.smv.service.VehicleConnectionService;
+import edu.msoe.smv.utility.Utility;
 import edu.msoe.smv.view.GoldilocksBar;
 
 /**

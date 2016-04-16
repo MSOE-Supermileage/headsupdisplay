@@ -1,4 +1,4 @@
-package edu.msoe.smv;
+package edu.msoe.smv.utility;
 
 import android.content.Context;
 import android.content.Intent;
@@ -36,6 +36,7 @@ public class Utility {
     }
 
     public static Bundle parseDataNode(JsonReader reader) throws IOException {
+        // Bundle is effectively a hashmap - the view can seek what it wants
         Bundle data = new Bundle();
 
         reader.beginObject();

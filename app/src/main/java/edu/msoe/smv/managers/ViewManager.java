@@ -1,4 +1,4 @@
-package edu.msoe.smv.Managers;
+package edu.msoe.smv.managers;
 
 import android.app.Activity;
 import android.widget.TextView;
@@ -6,7 +6,7 @@ import android.widget.TextView;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import edu.msoe.smv.service.Stopwatch;
+import edu.msoe.smv.utility.Stopwatch;
 import edu.msoe.smv.view.GoldilocksBar;
 
 /**

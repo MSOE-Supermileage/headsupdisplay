@@ -11,73 +11,45 @@ import org.json.JSONObject;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.net.URISyntaxException;
 import java.util.LinkedList;
 import java.util.List;
 
-import edu.msoe.smv.Managers.ViewManager;
-import edu.msoe.smv.Utility;
-import io.socket.client.IO;
-import io.socket.client.Socket;
+import edu.msoe.smv.utility.Utility;
 
 /**
  * Created by austin on 1/31/16.
  */
-public class DataNodeHandler extends Handler {
-
-    public static final String URL = "http://supermileage.azurewebsites.net/";
-
-    private long lastSendTime;
-
-    // default starts at half a second
-    private int movingPublishPeriod = 500;
+public class LogFilePublisher extends Handler {
 
     private final FileWriter logFileWriter;
     private List<String> csvHeaders = new LinkedList<>();
 
-    private Socket webSocket;
-
-    public DataNodeHandler() throws IOException {
-
-        lastSendTime = System.currentTimeMillis();
-
+    public LogFilePublisher() throws IOException {
         String fileName = "daq-data.csv";
         String logPath = android.os.Environment.getExternalStorageDirectory().getAbsolutePath()
                 + File.separator
                 + fileName;
         File logFile = new File(logPath);
         logFileWriter = new FileWriter(logFile, true);
-
-        try {
-            webSocket = IO.socket(URL);
-            webSocket.connect();
-        } catch (URISyntaxException e) {
-            e.printStackTrace();
-        }
     }
 
     @Override
     public void handleMessage(Message message) {
-        long curTime = System.currentTimeMillis();
         // publish to pit view
-        Bundle receive = message.getData();
+        Bundle receiveData = message.getData();
         JSONObject objectSend = new JSONObject();
-        ViewManager.getInstance().updateData(objectSend);
-        for (String key : receive.keySet()) {
+        for (String key : receiveData.keySet()) {
             try {
-                objectSend.put(key, receive.getDouble(key));
+                objectSend.put(key, receiveData.getDouble(key));
             } catch (JSONException e) {
                 // why is this a checked exception???
                 // rethrow unchecked. It's not like we're letting the user build the object.
                 throw new UnsupportedOperationException(e.getMessage());
             }
         }
-        if (curTime - lastSendTime >= movingPublishPeriod) {
-            webSocket.emit(objectSend.toString());
-        }
 
         try {
-            writeToCSV(receive);
+            writeToCSV(receiveData);
         } catch (IOException e) {
             Log.e("I/O Error", e.getMessage());
         }

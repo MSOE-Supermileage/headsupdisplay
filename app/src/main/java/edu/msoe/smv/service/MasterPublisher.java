@@ -4,18 +4,24 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.os.ResultReceiver;
+import android.util.Log;
 
 /**
  * Created by austin on 1/31/16.
+ * god object that publishes data to everyone concerned
+ * is this a controller? maybe?
  */
-public class ReceiverNotifier {
+public class MasterPublisher {
 
     private final ResultReceiver receiver;
-    private final Handler pitViewPublisher;
+    private final WebPublisher pitViewPublisher;
+    private final LogFilePublisher logFilePublisher;
 
-    public ReceiverNotifier(ResultReceiver receiver, Handler pitViewPublisher) {
+    public MasterPublisher(ResultReceiver receiver, WebPublisher pitViewPublisher,
+                           LogFilePublisher logFilePublisher) {
         this.receiver = receiver;
         this.pitViewPublisher = pitViewPublisher;
+        this.logFilePublisher = logFilePublisher;
     }
 
     /**
@@ -40,6 +46,7 @@ public class ReceiverNotifier {
         Message send = pitViewPublisher.obtainMessage();
         send.setData(node);
         pitViewPublisher.sendMessage(send);
+        logFilePublisher.sendMessage(send);
     }
 
     /**

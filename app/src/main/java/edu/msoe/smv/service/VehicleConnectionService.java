@@ -50,25 +50,25 @@ public class VehicleConnectionService extends Service {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         try {
-            final Handler handler;
-            handler = new DataNodeHandler();
+            final WebPublisher webPublisher = new WebPublisher();
+            final LogFilePublisher logFilePublisher = new LogFilePublisher();
 
-            ReceiverNotifier notifier = new ReceiverNotifier(
-                    intent.<ResultReceiver>getParcelableExtra("receiver"), handler);
+            MasterPublisher masterPublisher = new MasterPublisher(
+                    intent.<ResultReceiver>getParcelableExtra("receiver"), webPublisher, logFilePublisher);
 
             if (vehicleConnectionThread == null) {
-                vehicleConnectionThread = new VehicleConnectionThread(notifier);
+                vehicleConnectionThread = new VehicleConnectionThread(masterPublisher);
 
             } else if (!vehicleConnectionThread.isAlive()) {
                 // if the thread died, recreate the instance.
                 if (vehicleConnectionThread.getState() == Thread.State.TERMINATED) {
-                    vehicleConnectionThread = new VehicleConnectionThread(notifier);
+                    vehicleConnectionThread = new VehicleConnectionThread(masterPublisher);
                 }
                 vehicleConnectionThread.start();
             }
 
         } catch (IOException e) {
-            Log.e(DataNodeHandler.class.getName(), e.getMessage());
+            Log.e(WebPublisher.class.getName(), e.getMessage());
         }
 
         return START_REDELIVER_INTENT;

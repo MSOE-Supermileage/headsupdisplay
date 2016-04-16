@@ -1,4 +1,4 @@
-package edu.msoe.smv.service;
+package edu.msoe.smv.utility;
 
 import java.util.LinkedList;
 
