@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:fab="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    tools:context=".HeadsUpDisplay">
+
+    <include layout="@layout/gas_sublayout" />
+
+    <com.getbase.floatingactionbutton.FloatingActionButton
+        android:id="@+id/startStopwatch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        fab:fab_colorNormal="@color/green"
+        fab:fab_colorPressed="@color/white_pressed"
+        fab:fab_icon="@android:drawable/ic_media_play" />
+
+    <com.getbase.floatingactionbutton.FloatingActionButton
+        android:id="@+id/resetStopwatch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_toEndOf="@+id/startStopwatch"
+        fab:fab_colorNormal="@color/yellow"
+        fab:fab_colorPressed="@color/white_pressed"
+        fab:fab_icon="@android:drawable/ic_menu_revert" />
+
+    <com.getbase.floatingactionbutton.FloatingActionButton
+        android:id="@+id/lapStopwatch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_toStartOf="@+id/startStopwatch"
+        fab:fab_colorNormal="@color/black_semi_transparent"
+        fab:fab_colorPressed="@color/white_pressed"
+        fab:fab_icon="@android:drawable/ic_media_next" />
+
+</RelativeLayout>
+
