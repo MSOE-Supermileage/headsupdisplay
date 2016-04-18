@@ -17,7 +17,7 @@ public class ViewManager {
     private Activity context;
     private TextView mphLabel, rpmLabel, oxyLabel, engineTempLabel, totalTimeLabel, lapTimeLabel;
     private GoldilocksBar engineTempBar, oxygenBar;
-    private Stopwatch mStopwatch, totalStopwatch;
+    private Stopwatch mStopwatch;
     private boolean isGasCar = true;
 
     public static ViewManager getInstance() {
@@ -79,7 +79,6 @@ public class ViewManager {
     //endregion
 
     private ViewManager() {
-        totalStopwatch = new Stopwatch();
         mStopwatch = new Stopwatch(new Runnable() {
             @Override
             public void run() {
@@ -87,10 +86,10 @@ public class ViewManager {
                     @Override
                     public void run() {
                         if (totalTimeLabel != null) {
-                            totalTimeLabel.setText(Stopwatch.toTimeString(totalStopwatch.getDuration()));
+                            totalTimeLabel.setText(Stopwatch.toTimeString(mStopwatch.getRunningTime()));
                         }
                         if (lapTimeLabel != null) {
-                            lapTimeLabel.setText(Stopwatch.toTimeString(mStopwatch.getDuration()));
+                            lapTimeLabel.setText(Stopwatch.toTimeString(mStopwatch.getCurrentLapTime()));
                         }
                     }
                 });
@@ -151,19 +150,21 @@ public class ViewManager {
 
     public void startTimer() {
         mStopwatch.start();
-        totalStopwatch.start();
     }
 
     public void pauseTimer() {
         mStopwatch.pause();
-        totalStopwatch.pause();
     }
 
-    public void doLapTimer() {
-        mStopwatch.lap();
+    public long lap() {
+        return mStopwatch.lap();
     }
 
     public void getLapTimes() {
         mStopwatch.getLapTimes();
+    }
+
+    public void resetTimer() {
+        mStopwatch.resetTimer();
     }
 }

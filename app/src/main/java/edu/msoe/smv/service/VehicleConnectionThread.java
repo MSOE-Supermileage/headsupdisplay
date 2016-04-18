@@ -31,11 +31,11 @@ public class VehicleConnectionThread extends ConnectionThreadBase {
                 masterPublisher.notifyDataCollectorConnectedStatus(true);
 
                 while (!Thread.currentThread().isInterrupted()) {
-                    final Bundle dataNode;
+
                     // blocking until receive
                     JsonReader reader = new JsonReader(new InputStreamReader(dataCollector.getInputStream()));
 
-                    dataNode = Utility.parseDataNode(reader);
+                    final Bundle dataNode = Utility.parseDataNode(reader);
 
                     // service doesn't care about which car or what's in the data node,
                     // let the client controller determine how to deal with the data.

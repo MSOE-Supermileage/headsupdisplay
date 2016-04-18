@@ -52,7 +52,6 @@ public class WebPublisher extends Handler {
             // publish to pit view
             Bundle receive = message.getData();
             JSONObject objectSend = new JSONObject();
-            ViewManager.getInstance().updateData(objectSend);
             for (String key : receive.keySet()) {
                 try {
                     objectSend.put(key, receive.getDouble(key));

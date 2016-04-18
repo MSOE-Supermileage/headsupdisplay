@@ -13,8 +13,8 @@
         android:id="@+id/startStopwatch"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
         fab:fab_colorNormal="@color/green"
         fab:fab_colorPressed="@color/white_pressed"
         fab:fab_icon="@android:drawable/ic_media_play" />
@@ -23,8 +23,8 @@
         android:id="@+id/resetStopwatch"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_toEndOf="@+id/startStopwatch"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/startStopwatch"
         fab:fab_colorNormal="@color/yellow"
         fab:fab_colorPressed="@color/white_pressed"
         fab:fab_icon="@android:drawable/ic_menu_revert" />
@@ -33,8 +33,8 @@
         android:id="@+id/lapStopwatch"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_toStartOf="@+id/startStopwatch"
+        android:layout_above="@+id/startStopwatch"
+        android:layout_alignParentRight="true"
         fab:fab_colorNormal="@color/black_semi_transparent"
         fab:fab_colorPressed="@color/white_pressed"
         fab:fab_icon="@android:drawable/ic_media_next" />

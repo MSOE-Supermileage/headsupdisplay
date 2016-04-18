@@ -20,11 +20,11 @@ import edu.msoe.smv.model.ProgressItem;
 public class GoldilocksBar extends SeekBar {
     private List<ProgressItem> mProgressItemsList = new ArrayList<>();
 
-    private float totalSpan = 100;
+    private static final float totalSpan = 100;
 
-    private float redSpan = 10;
-    private float blueSpan = 55;
-    private float greenSpan = 35;
+    private static final float redSpan = 15;
+    private static final float blueSpan = 30;
+    private static final float greenSpan = 55;
 
     public GoldilocksBar(Context context) {
         super(context);

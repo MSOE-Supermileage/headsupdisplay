@@ -108,7 +108,7 @@
                         android:layout_height="match_parent"
                         android:textAppearance="?android:attr/textAppearanceLarge"
                         android:text="00:00.00"
-                        android:id="@+id/lapTime1"
+                        android:id="@+id/lapTime"
                         android:layout_weight="1"
                         android:textSize="40sp"
                         android:textIsSelectable="false"
@@ -121,7 +121,7 @@
                         android:layout_height="match_parent"
                         android:textAppearance="?android:attr/textAppearanceLarge"
                         android:text="00:00.00"
-                        android:id="@+id/lapTime2"
+                        android:id="@+id/totalTime"
                         android:layout_weight="1"
                         android:gravity="top|right"
                         android:paddingRight="10dp"
@@ -201,7 +201,7 @@
                 </LinearLayout>
 
                 <edu.msoe.smv.view.GoldilocksBar
-                    android:id="@+id/temp1"
+                    android:id="@+id/engineTempBar"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:max="100"
