@@ -2,7 +2,6 @@ package edu.msoe.smv.service;
 
 import android.app.Service;
 import android.content.Intent;
-import android.os.Handler;
 import android.os.IBinder;
 import android.os.ResultReceiver;
 import android.support.annotation.Nullable;
@@ -22,7 +21,6 @@ public class VehicleConnectionService extends Service {
 
     public static final String MESSAGE = "message";
     public static final int MESSAGE_CODE = 100;
-    public static final String DATA_NODE = "node";
     public static final int DATA_NODE_CODE = 200;
     public static final String PI_CONNECTED = "connected";
     public static final int PI_CONNECTED_CODE = 300;
@@ -40,6 +38,7 @@ public class VehicleConnectionService extends Service {
      */
     @Override
     public void onCreate() {
+        Toast.makeText(getApplicationContext(), "attempting to connect to DAQ...", Toast.LENGTH_LONG).show();
 
     }
 
@@ -58,14 +57,13 @@ public class VehicleConnectionService extends Service {
 
             if (vehicleConnectionThread == null) {
                 vehicleConnectionThread = new VehicleConnectionThread(masterPublisher);
-
             } else if (!vehicleConnectionThread.isAlive()) {
                 // if the thread died, recreate the instance.
                 if (vehicleConnectionThread.getState() == Thread.State.TERMINATED) {
                     vehicleConnectionThread = new VehicleConnectionThread(masterPublisher);
                 }
-                vehicleConnectionThread.start();
             }
+            vehicleConnectionThread.start();
 
         } catch (IOException e) {
             Log.e(WebPublisher.class.getName(), e.getMessage());
@@ -76,6 +74,7 @@ public class VehicleConnectionService extends Service {
 
     @Override
     public void onDestroy() {
+        Toast.makeText(getApplicationContext(), "detaching from DAQ...", Toast.LENGTH_LONG).show();
         while (vehicleConnectionThread != null && vehicleConnectionThread.isAlive()) {
             vehicleConnectionThread.interrupt();
             try {

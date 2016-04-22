@@ -60,7 +60,8 @@ public class Utility {
             builder.append(args.get(i));
             builder.append(delimiter);
         }
-        builder.append(args.get(args.size() - 1));
+        if (!args.isEmpty())
+            builder.append(args.get(args.size() - 1));
         return builder.toString();
     }
 }

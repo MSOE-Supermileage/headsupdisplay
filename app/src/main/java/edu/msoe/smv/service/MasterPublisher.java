@@ -43,10 +43,14 @@ public class MasterPublisher {
         receiver.send(VehicleConnectionService.DATA_NODE_CODE, node);
 
         // send to the pit view publisher
-        Message send = pitViewPublisher.obtainMessage();
-        send.setData(node);
-        pitViewPublisher.sendMessage(send);
-        logFilePublisher.sendMessage(send);
+        Message send1 = pitViewPublisher.obtainMessage();
+        // we need two messages because android does some funky stuff with message queues and
+        // uniqueness requirements.
+        Message send2 = new Message();
+        send2.copyFrom(send1);
+        send1.setData(node);
+        pitViewPublisher.sendMessage(send1);
+        logFilePublisher.sendMessage(send2);
     }
 
     /**

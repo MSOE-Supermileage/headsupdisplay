@@ -38,6 +38,12 @@
                 android:resource="@xml/accessory_filter" />
         </activity>
 
+        <service
+            android:name=".service.VehicleConnectionService"
+            android:enabled="true"
+            android:exported="true" >
+        </service>
+
     </application>
 
 </manifest>

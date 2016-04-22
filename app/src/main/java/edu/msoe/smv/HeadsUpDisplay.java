@@ -1,6 +1,6 @@
 /**
  * @author austin
- * @version 1.01
+ * @version 1.0
  */
 package edu.msoe.smv;
 

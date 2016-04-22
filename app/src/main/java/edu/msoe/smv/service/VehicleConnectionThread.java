@@ -2,6 +2,7 @@ package edu.msoe.smv.service;
 
 import android.os.Bundle;
 import android.util.JsonReader;
+import android.widget.Toast;
 
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -23,6 +24,7 @@ public class VehicleConnectionThread extends ConnectionThreadBase {
 
     @Override
     public void run() {
+        masterPublisher.postMessage("running thread...");
         while (!Thread.currentThread().isInterrupted()) {
             try (ServerSocket waitSocket = new ServerSocket(PORT)) {
                 // blocking call
