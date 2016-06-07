@@ -10,18 +10,20 @@ import android.util.Log;
 import java.io.IOException;
 import java.util.List;
 
+import edu.msoe.smv.service.LapTimerService;
 import edu.msoe.smv.service.VehicleConnectionService;
 
 /**
  * Created by austin on 1/31/16.
+ *
  */
+@SuppressWarnings("unused")
 public class Utility {
 
     private Utility() {}
 
     public static void startVehicleConnectionService(Context context, ResultReceiver receiver) {
         Log.d("debug", "starting vehicle service...");
-        // Create the vehicle connection service
         Intent serviceBindingIntent = new Intent(context, VehicleConnectionService.class);
         serviceBindingIntent.putExtra("receiver", receiver);
         context.startService(serviceBindingIntent);
@@ -29,14 +31,29 @@ public class Utility {
     }
 
     public static void stopVehicleConnectionService(Context context) {
-        // stop the vehicle connection service
+        Log.d("debug", "stopping vehicle connection service...");
         Intent stopIntent = new Intent(context, VehicleConnectionService.class);
         context.stopService(stopIntent);
         Log.d("debug", "service stopped");
     }
 
+    public static void startLapTimerService(Context context, ResultReceiver receiver) {
+        Log.d("debug", "starting lap timer service...");
+        Intent serviceBindingIntent = new Intent(context, LapTimerService.class);
+        serviceBindingIntent.putExtra("receiver", receiver);
+        context.startService(serviceBindingIntent);
+        Log.d("debug", "service started");
+    }
+
+    public static void stopLapTimerService(Context context) {
+        Log.d("debug", "stopping the lap timer service...");
+        Intent stopIntent = new Intent(context, LapTimerService.class);
+        context.stopService(stopIntent);
+        Log.d("debug", "service stopped");
+    }
+
     public static Bundle parseDataNode(JsonReader reader) throws IOException {
-        // Bundle is effectively a hashmap - the view can seek what it wants
+        // Bundle is effectively a hash map - the view can seek what it wants
         Bundle data = new Bundle();
 
         reader.beginObject();

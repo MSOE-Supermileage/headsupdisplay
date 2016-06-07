@@ -10,12 +10,12 @@ import org.json.JSONObject;
 import java.io.IOException;
 import java.net.URISyntaxException;
 
-import edu.msoe.smv.managers.ViewManager;
 import io.socket.client.IO;
 import io.socket.client.Socket;
 
 /**
  * Created by austin on 1/31/16.
+ *
  */
 public class WebPublisher extends Handler {
 

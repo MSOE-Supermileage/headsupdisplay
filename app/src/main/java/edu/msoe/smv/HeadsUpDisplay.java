@@ -1,6 +1,6 @@
 /**
  * @author austin
- * @version 1.0
+ * @version 1.2
  */
 package edu.msoe.smv;
 
@@ -20,16 +20,15 @@ import android.widget.Toast;
 import com.getbase.floatingactionbutton.FloatingActionButton;
 
 import java.text.DecimalFormat;
+import java.util.Locale;
 
-import edu.msoe.smv.managers.ViewManager;
+import edu.msoe.smv.service.LapTimerService;
 import edu.msoe.smv.service.VehicleConnectionService;
 import edu.msoe.smv.utility.Utility;
 import edu.msoe.smv.view.GoldilocksBar;
 import edu.msoe.smv.view.VerticalGoldilocksBar;
 
 /**
- * Example Activity from legacy DAQ to show how to use VehicleConnectionService
- *
  * @see VehicleConnectionService
  */
 public class HeadsUpDisplay extends Activity {
@@ -38,10 +37,16 @@ public class HeadsUpDisplay extends Activity {
     private TextView rpmLabel;
     private TextView engineTempLabel;
     private SeekBar engineTempBar;
-//    private TextView airFuelRatioText;
-//    private GoldilocksBar airFuelRatioBar;
 
-    private ServiceReceiver resultReceiver = new ServiceReceiver(new Handler());
+    private TextView totalTimeLabel;
+    private TextView currentLapTimeLabel;
+
+    private Thread timerThread;
+    private boolean isRunning = false;
+    private long startTime;
+    private long lapStartTime;
+
+    private ServiceReceiver serviceReceiver = new ServiceReceiver(new Handler());
 
     /**
      * Handle for services to update the UI (message receiver)
@@ -73,6 +78,9 @@ public class HeadsUpDisplay extends Activity {
 
                     } else if (resultCode == VehicleConnectionService.DATA_NODE_CODE) {
                         updateView(resultData);
+                    } else if (resultCode == LapTimerService.LAP) {
+                        lapStartTime = System.currentTimeMillis();
+                        timerThread.interrupt();
                     }
                 }
             });
@@ -88,39 +96,75 @@ public class HeadsUpDisplay extends Activity {
             if (resultData.containsKey("engine_temp")) {
                 updateEngineTemp(resultData.getDouble("engine_temp"));
             }
-//            if (resultData.containsKey("afr")) {
-//                updateAirFuelRatio(resultData.getDouble("afr"));
-//            }
         }
     }
 
     private final DecimalFormat doubleFormatter = new DecimalFormat("0.0");
 
-    private void updateRPM(double rpm) {
+    public void updateRPM(double rpm) {
         rpmLabel.setText(doubleFormatter.format(rpm));
     }
 
-    private void updateSpeed(double speed) {
+    public void updateSpeed(double speed) {
         mphLabel.setText(doubleFormatter.format(speed));
     }
 
-    private void updateEngineTemp(double engineTemp) {
+    public void updateEngineTemp(double engineTemp) {
         String engineTempText = doubleFormatter.format(engineTemp) + "  \u00B0F";
         engineTempLabel.setText(engineTempText);
         engineTempBar.setProgress((int) (engineTemp / 200.0 * 100.0));
     }
 
-//    private void updateAirFuelRatio(double afr) {
-//        String afrText = doubleFormatter.format(afr) + "%";
-//        airFuelRatioText.setText(afrText);
-//        airFuelRatioBar.setProgress((int) afr);
-//    }
+    public void updateLapTime(long millis) {
+        currentLapTimeLabel.setText(formatMillisDiff(millis));
+    }
 
-    //region Activity API Callbacks
+    public void updateTotalTime(long millis) {
+        totalTimeLabel.setText(formatMillisDiff(millis));
+    }
 
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    private String formatMillisDiff(long millis) {
+        long minutes = millis / (60 * 1000) % 60;
+        long seconds = millis / 1000 % 60;
+        // invariant locale
+        return String.format(Locale.US, "%02d:%02d", minutes, seconds);
+    }
+
+    private void startTimer() {
+        startTime = lapStartTime = System.currentTimeMillis();
+        isRunning = true;
+        timerThread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                while (isRunning) {
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            updateLapTime(System.currentTimeMillis() - lapStartTime);
+                            updateTotalTime(System.currentTimeMillis() - startTime);
+                        }
+                    });
+                    try {
+                        Thread.sleep(500);
+                    } catch (InterruptedException e) {
+                        Thread.interrupted();
+                    }
+                }
+            }
+        });
+        timerThread.start();
+    }
+
+    private void stopTimer() {
+        isRunning = false;
+        try {
+            timerThread.join();
+        } catch (InterruptedException e) {
+            Thread.interrupted();
+        }
+    }
+
+    private void initializeActivity() {
         // Remove title bar
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         // Remove notification bar
@@ -141,74 +185,49 @@ public class HeadsUpDisplay extends Activity {
                 | View.SYSTEM_UI_FLAG_FULLSCREEN
                 | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY;
         decorView.setSystemUiVisibility(uiOptions);
+    }
+
+    //region Activity API Callbacks
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        initializeActivity();
 
         mphLabel = (TextView) findViewById(R.id.speedLabel);
         rpmLabel = (TextView) findViewById(R.id.rpmLabel);
         engineTempLabel = (TextView) findViewById(R.id.engineTempLabel);
-
+        totalTimeLabel = (TextView) findViewById(R.id.totalTime);
+        currentLapTimeLabel = (TextView) findViewById(R.id.lapTime);
         if (findViewById(R.id.engineTempBar) instanceof GoldilocksBar) {
             engineTempBar = (GoldilocksBar) findViewById(R.id.engineTempBar);
         } else {
             engineTempBar = (VerticalGoldilocksBar) findViewById(R.id.engineTempBar);
         }
 
-//        airFuelRatioBar = (GoldilocksBar) findViewById(R.id.temp2);
-//        airFuelRatioText = (TextView) findViewById(R.id.oxygenPercLabel);
-
-        TextView laptime = (TextView) findViewById(R.id.lapTime);
-        TextView tottime = (TextView) findViewById(R.id.totalTime);
-        ViewManager v = ViewManager
-                .getInstance()
-                .setLapTimeLabel(laptime)
-                .setTotalTimeLabel(tottime);
-        v.setContext(this);
-
-        initFABMenu();
-        Utility.startVehicleConnectionService(getApplicationContext(), resultReceiver);
-    }
-
-    public void initFABMenu() {
-        final FloatingActionButton startStopwatch = (FloatingActionButton) findViewById(R.id.startStopwatch);
-        startStopwatch.setOnClickListener(new OnClickListener() {
-            private boolean isRunning = false;
+        final FloatingActionButton timerToggleButton = (FloatingActionButton) findViewById(R.id.startStopwatch);
+        timerToggleButton.setOnClickListener(new OnClickListener() {
 
             @Override
             public void onClick(View v) {
                 if (!isRunning) {
-                    ViewManager.getInstance().startTimer();
-                    startStopwatch.setIcon(R.drawable.ic_media_pause);
-                    startStopwatch.setColorNormal(R.color.yellow);
-                    isRunning = true;
+                    timerToggleButton.setIcon(R.drawable.ic_media_stop);
+                    startTimer();
                 } else {
-                    ViewManager.getInstance().pauseTimer();
-                    startStopwatch.setIcon(R.drawable.ic_media_embed_play);
-                    startStopwatch.setColorNormal(R.color.green);
-                    isRunning = false;
+                    timerToggleButton.setIcon(R.drawable.ic_media_embed_play);
+                    stopTimer();
                 }
             }
         });
-        FloatingActionButton resetStopwatch = (FloatingActionButton) findViewById(R.id.resetStopwatch);
-        resetStopwatch.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ViewManager.getInstance().resetTimer();
-                ((TextView) findViewById(R.id.totalTime)).setText(getString(R.string.zero_time));
-                ((TextView) findViewById(R.id.lapTime)).setText(getString(R.string.zero_time));
-            }
-        });
-        FloatingActionButton lapStopwatch = (FloatingActionButton) findViewById(R.id.lapStopwatch);
-        lapStopwatch.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                long lapTime = ViewManager.getInstance().lap();
-                ((TextView) findViewById(R.id.lapTime)).setText(getString(R.string.zero_time));
-            }
-        });
+
+        Utility.startVehicleConnectionService(getApplicationContext(), serviceReceiver);
+        Utility.startLapTimerService(getApplicationContext(), serviceReceiver);
     }
 
     @Override
     public void onDestroy() {
         Utility.stopVehicleConnectionService(getApplicationContext());
+        Utility.stopLapTimerService(getApplicationContext());
         super.onDestroy();
     }
 

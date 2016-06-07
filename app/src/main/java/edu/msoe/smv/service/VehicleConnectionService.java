@@ -39,7 +39,6 @@ public class VehicleConnectionService extends Service {
     @Override
     public void onCreate() {
         Toast.makeText(getApplicationContext(), "attempting to connect to DAQ...", Toast.LENGTH_LONG).show();
-
     }
 
     /**

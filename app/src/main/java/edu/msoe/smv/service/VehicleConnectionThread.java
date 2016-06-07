@@ -2,6 +2,7 @@ package edu.msoe.smv.service;
 
 import android.os.Bundle;
 import android.util.JsonReader;
+import android.util.Log;
 import android.widget.Toast;
 
 import java.io.IOException;
@@ -13,6 +14,7 @@ import edu.msoe.smv.utility.Utility;
 
 /**
  * Created by austin on 1/31/16.
+ *
  */
 public class VehicleConnectionThread extends ConnectionThreadBase {
 
@@ -24,7 +26,7 @@ public class VehicleConnectionThread extends ConnectionThreadBase {
 
     @Override
     public void run() {
-        masterPublisher.postMessage("running thread...");
+        Log.d(getClass().getSimpleName(), "running thread...");
         while (!Thread.currentThread().isInterrupted()) {
             try (ServerSocket waitSocket = new ServerSocket(PORT)) {
                 // blocking call
