@@ -7,37 +7,28 @@
     android:fitsSystemWindows="true"
     tools:context=".HeadsUpDisplay">
 
+    <ImageButton
+        android:id="@+id/settingsButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:padding="10dp"
+        android:layout_margin="10dp"
+        android:background="?android:selectableItemBackground"
+        android:src="@drawable/ic_settings"
+        android:contentDescription="@string/settings" />
+
     <include layout="@layout/gas_sublayout" />
 
     <com.getbase.floatingactionbutton.FloatingActionButton
         android:id="@+id/startStopwatch"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
         android:layout_centerVertical="true"
         fab:fab_colorNormal="@color/green"
         fab:fab_colorPressed="@color/white_pressed"
         fab:fab_icon="@android:drawable/ic_media_play" />
-
-    <com.getbase.floatingactionbutton.FloatingActionButton
-        android:id="@+id/resetStopwatch"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_below="@+id/startStopwatch"
-        fab:fab_colorNormal="@color/yellow"
-        fab:fab_colorPressed="@color/white_pressed"
-        fab:fab_icon="@android:drawable/ic_menu_revert" />
-
-    <com.getbase.floatingactionbutton.FloatingActionButton
-        android:id="@+id/lapStopwatch"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/startStopwatch"
-        android:layout_alignParentRight="true"
-        fab:fab_colorNormal="@color/black_semi_transparent"
-        fab:fab_colorPressed="@color/white_pressed"
-        fab:fab_icon="@android:drawable/ic_media_next" />
 
 </RelativeLayout>
 

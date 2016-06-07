@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -179,48 +178,6 @@
             android:layout_weight="1"
             android:orientation="vertical"
             tools:ignore="UselessLeaf">
-
-            <!--<TextView-->
-            <!--android:id="@+id/textView3"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:gravity="right"-->
-            <!--android:text="@string/air_fuel_ratio"-->
-            <!--android:textAppearance="?android:attr/textAppearanceMedium" />-->
-
-            <!--<LinearLayout-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="match_parent"-->
-            <!--android:layout_marginTop="5dp"-->
-            <!--android:orientation="horizontal">-->
-
-            <!--<TextView-->
-            <!--android:id="@+id/oxygenPercLabel"-->
-            <!--android:layout_width="52dp"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_marginTop="10dp"-->
-            <!--android:gravity="right"-->
-            <!--android:text="@string/zero_percent"-->
-            <!--android:textAppearance="?android:attr/textAppearanceMedium"-->
-            <!--android:textColor="#232323" />-->
-
-            <!--<edu.msoe.smv.view.VerticalGoldilocksBar-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="match_parent"-->
-            <!--android:layout_marginBottom="10dp"-->
-            <!--android:layout_marginLeft="10dp"-->
-            <!--android:layout_marginRight="10dp"-->
-            <!--android:layout_marginTop="4dp"-->
-            <!--android:layout_weight="1"-->
-            <!--android:max="100"-->
-            <!--android:paddingLeft="12dp"-->
-            <!--android:paddingRight="12dp"-->
-            <!--android:progress="30"-->
-            <!--android:progressDrawable="@android:color/transparent"-->
-            <!--android:rotation="0"-->
-            <!--android:thumb="@drawable/seek_thumb_normal"-->
-            <!--android:thumbOffset="12dp" />-->
-            <!--</LinearLayout>-->
 
         </LinearLayout>
 
