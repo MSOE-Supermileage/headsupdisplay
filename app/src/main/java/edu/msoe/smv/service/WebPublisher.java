@@ -19,7 +19,7 @@ import io.socket.client.Socket;
  */
 public class WebPublisher extends Handler {
 
-    public static final String URL = "http://supermileage.azurewebsites.net/";
+    public static final String URL = "http://10.1.99.2/";
 
     private long lastSendTime;
 

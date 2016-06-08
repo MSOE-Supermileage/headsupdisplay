@@ -103,7 +103,7 @@
                     android:gravity="start|center_vertical"
                     android:text="@string/rpm"
                     android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:textSize="15sp" />
+                    android:textSize="20sp" />
 
             </LinearLayout>
 
